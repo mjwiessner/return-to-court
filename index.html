@@ -736,7 +736,10 @@ function wireWeightFields(root){
   Array.prototype.forEach.call(root.querySelectorAll('.wt-field'), function(field){
     var id = field.dataset.wt;
     var input = field.querySelector('.wt-input');
-    input.addEventListener('change', function(){ setWeight(id, input.value); });
+    /* save on every keystroke, not just blur/Enter — otherwise typing a
+       weight and immediately closing the app (no tap-away first) would
+       lose it */
+    input.addEventListener('input', function(){ setWeight(id, input.value); });
     Array.prototype.forEach.call(field.querySelectorAll('.wt-step'), function(btn){
       btn.addEventListener('click', function(){
         var cur = parseFloat(input.value) || 0;
