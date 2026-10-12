@@ -1,0 +1,1607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Return to Court</title>
+<meta name="description" content="12-week knee-durability and volleyball/tennis performance program.">
+<meta name="theme-color" content="#1b2a4a">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon.svg">
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+:root{
+  --court:#1b2a4a;
+  --court-2:#24365c;
+  --paper:#f6f3ec;
+  --paper-2:#ece7d9;
+  --ink:#1b2a4a;
+  --ink-soft:#52607a;
+  --amber:#c97a2e;
+  --amber-soft:#f0ddbd;
+  --teal:#1f7a6c;
+  --teal-soft:#dcebe7;
+  --coral:#c84a3c;
+  --coral-soft:#f5dcd8;
+  --line:#d8d2c2;
+  --card:#ffffff;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --court:#9fb3d9;
+    --court-2:#c3d2ec;
+    --paper:#11161f;
+    --paper-2:#171d29;
+    --ink:#e7e9ee;
+    --ink-soft:#9aa6bd;
+    --amber:#e2a35c;
+    --amber-soft:#3a2d1a;
+    --teal:#6cc2b1;
+    --teal-soft:#15302b;
+    --coral:#e1847a;
+    --coral-soft:#3a1d1a;
+    --line:#2b3140;
+    --card:#161b26;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --court:#9fb3d9;
+  --court-2:#c3d2ec;
+  --paper:#11161f;
+  --paper-2:#171d29;
+  --ink:#e7e9ee;
+  --ink-soft:#9aa6bd;
+  --amber:#e2a35c;
+  --amber-soft:#3a2d1a;
+  --teal:#6cc2b1;
+  --teal-soft:#15302b;
+  --coral:#e1847a;
+  --coral-soft:#3a1d1a;
+  --line:#2b3140;
+  --card:#161b26;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Source Serif 4", Georgia, "Times New Roman", serif;
+  line-height:1.5;
+  padding-inline:16px;
+  max-width:960px;
+  margin:0 auto;
+}
+h1,h2,h3,.disp{
+  font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+  text-wrap:balance;
+}
+.mono, .num, time, .tag{
+  font-family:"JetBrains Mono","Courier New",monospace;
+  font-variant-numeric:tabular-nums;
+}
+a{color:var(--teal);}
+a.ext::after{content:" \2197";font-size:.85em;}
+::selection{background:var(--amber-soft);}
+
+/* ---- Hero ---- */
+.hero{
+  padding-block:28px 18px;
+  border-bottom:3px solid var(--ink);
+  margin-bottom:22px;
+}
+.hero .kicker{
+  font-family:"JetBrains Mono",monospace;
+  font-size:.75rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--teal);
+  margin:0 0 6px;
+}
+.hero h1{
+  font-size:clamp(2.1rem,6vw,3.4rem);
+  line-height:.95;
+  margin:0 0 10px;
+  color:var(--ink);
+}
+.hero p.lede{
+  font-size:1.05rem;
+  color:var(--ink-soft);
+  max-width:620px;
+  margin:0 0 16px;
+}
+.chart{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  margin-bottom:14px;
+}
+.chart div{
+  background:var(--card);
+  padding:9px 12px;
+}
+.chart .k{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:3px;}
+.chart .v{font-family:"JetBrains Mono",monospace;font-size:1rem;font-weight:600;}
+.callout{
+  border:1px solid var(--line);
+  border-left:4px solid var(--teal);
+  background:var(--teal-soft);
+  padding:12px 14px;
+  font-size:.92rem;
+  border-radius:2px;
+}
+.callout.warn{border-left-color:var(--coral);background:var(--coral-soft);}
+.callout b{color:var(--ink);}
+
+/* ---- Phase strip ---- */
+.phases{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:20px 0 28px;
+}
+.phase-card{
+  border:1px solid var(--line);
+  background:var(--card);
+  padding:14px 12px;
+  border-radius:3px;
+}
+.phase-card .wk{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;}
+.phase-card h3{font-size:1.25rem;margin:4px 0 6px;}
+.phase-card p{font-size:.85rem;color:var(--ink-soft);margin:0;}
+@media (max-width:620px){.phases{grid-template-columns:1fr;}}
+
+/* ---- Phase selector ---- */
+.phase-select{
+  position:sticky;
+  top:env(safe-area-inset-top,0px);
+  z-index:5;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  background:var(--paper);
+  padding-block:10px 8px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:18px;
+}
+.phase-select .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);align-self:center;white-space:nowrap;}
+.phase-select .opts{display:flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden;flex:1;min-width:0;}
+.phase-select button{
+  font-family:"JetBrains Mono",monospace;
+  font-size:.72rem;
+  padding:7px 4px;
+  border:none;
+  background:var(--card);
+  color:var(--ink);
+  cursor:pointer;
+  border-right:1px solid var(--line);
+  flex:1;
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.phase-select button:last-child{border-right:none;}
+.phase-select button[aria-pressed="true"]{background:var(--ink);color:var(--paper);}
+
+/* ---- Day nav ---- */
+.daynav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:26px;
+}
+.daynav button{
+  font-family:"JetBrains Mono",monospace;
+  font-size:.78rem;
+  padding:8px 13px;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--ink);
+  border-radius:16px;
+  cursor:pointer;
+}
+.daynav button[aria-pressed="true"]{background:var(--amber);border-color:var(--amber);color:#1b1206;}
+
+/* ---- Day section ---- */
+.day-section{margin-bottom:34px;}
+.day-section[hidden]{display:none!important;}
+.day-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:12px;
+  border-bottom:2px solid var(--ink);
+  padding-bottom:6px;
+  margin-bottom:4px;
+}
+.day-head h2{font-size:1.7rem;margin:0;}
+.day-head .focus{font-size:.85rem;color:var(--ink-soft);font-style:italic;font-family:"Source Serif 4",serif;}
+.day-note{font-size:.88rem;color:var(--ink-soft);margin:6px 0 16px;}
+.start-wo{
+  margin-left:auto;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.78rem;
+  padding:8px 16px;
+  border:1px solid var(--coral);
+  color:var(--coral);
+  background:transparent;
+  border-radius:16px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.start-wo:active{background:var(--coral-soft);}
+
+/* ---- Workout mode (immersive, deliberately dark in both themes) ---- */
+.workout-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#0c0f16;
+  color:#f3f1ea;
+  color-scheme:dark;
+  display:flex;
+  flex-direction:column;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.workout-overlay[hidden]{display:none!important;}
+.wo-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 8px;flex:0 0 auto;}
+.wo-close{background:none;border:1px solid #3a4050;color:#f3f1ea;width:34px;height:34px;border-radius:50%;font-size:1rem;line-height:1;cursor:pointer;flex:0 0 auto;}
+.wo-timer{font-family:"JetBrains Mono",monospace;font-size:1.15rem;font-variant-numeric:tabular-nums;}
+.wo-progress{font-family:"JetBrains Mono",monospace;font-size:.82rem;color:#9aa6bd;flex:0 0 auto;}
+.wo-cal{font-family:"JetBrains Mono",monospace;font-size:.82rem;color:#e2a35c;flex:1;text-align:center;}
+.wo-dots{display:flex;gap:5px;padding:0 16px 12px;flex:0 0 auto;}
+.wo-dots span{height:4px;flex:1;background:#262b38;border-radius:2px;}
+.wo-dots span.done{background:#1f7a6c;}
+.wo-dots span.current{background:#c97a2e;}
+.wo-slide{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 20px 28px;display:flex;flex-direction:column;gap:14px;}
+.wo-name{font-family:"Big Shoulders Display","Arial Narrow",sans-serif;font-weight:700;text-transform:uppercase;font-size:2rem;line-height:1;margin:4px 0 0;}
+.wo-video{display:block;position:relative;border-radius:14px;overflow:hidden;aspect-ratio:9/13;max-height:44vh;background:linear-gradient(135deg,#1c2231,#2c1a22);text-decoration:none;color:#f3f1ea;border:1px solid #262b38;flex:0 0 auto;}
+.wo-video .wo-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.wo-video .wo-play::after{content:"\25B6";display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.14);font-size:1.6rem;padding-left:4px;}
+.wo-video .wo-vlabel{position:absolute;left:0;right:0;bottom:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.78));font-size:.82rem;}
+.wo-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.wo-meta .tag{background:#1c2231;border-color:#262b38;color:#f3f1ea;}
+.wo-diagram .stack{width:56px;background:#171b26;}
+.wo-diagram .poses{color:#9aa6bd;}
+.wo-cues{margin:0;padding-left:20px;font-size:.92rem;color:#cfd3dc;}
+.wo-cues li{margin-bottom:5px;}
+.wo-mistake{color:#e1847a;font-size:.88rem;margin:0;}
+.wo-done{
+  flex:0 0 auto;
+  width:100%;
+  box-sizing:border-box;
+  margin-top:4px;
+  padding:16px;
+  font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
+  font-weight:700;
+  font-size:1.25rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  border:none;
+  border-radius:12px;
+  background:#1f7a6c;
+  color:#fff;
+  cursor:pointer;
+}
+.wo-skip{
+  flex:0 0 auto;
+  width:100%;
+  box-sizing:border-box;
+  margin-top:4px;
+  padding:13px;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.85rem;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  border:1px solid #3a4050;
+  border-radius:12px;
+  background:transparent;
+  color:#cfd3dc;
+  cursor:pointer;
+}
+.wo-tag-stage{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#c97a2e;}
+.wo-instr-head{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#9aa6bd;margin-top:2px;}
+.wo-instr{border:1px solid #262b38;border-radius:10px;padding:10px 12px;background:#141822;}
+.wo-instr[open]{padding-bottom:12px;}
+.wo-see-instr{cursor:pointer;font-family:"JetBrains Mono",monospace;font-size:.85rem;color:#f3f1ea;list-style:none;}
+.wo-see-instr::-webkit-details-marker{display:none;}
+.wo-see-instr::before{content:"\25B8 ";color:#9aa6bd;}
+.wo-instr[open] .wo-see-instr::before{content:"\25BE ";}
+.wo-instr .wo-instr-head{margin-top:10px;}
+
+/* ---- Flyover title card (CSS-animated name reveal; the platform can't
+   embed or autoplay external video, so this is a fast title moment, not
+   literal footage) ---- */
+.wo-flyover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;overflow:hidden;cursor:pointer;}
+.wo-flyover-name{
+  display:block;
+  font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
+  font-weight:800;
+  font-size:clamp(1.7rem,7vw,2.5rem);
+  text-transform:uppercase;
+  text-align:center;
+  color:#f3f1ea;
+  animation:woFlyIn 1.1s cubic-bezier(.16,.9,.35,1) both;
+}
+.wo-flyover-sub{
+  font-family:"JetBrains Mono",monospace;
+  font-size:.78rem;
+  color:#9aa6bd;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  opacity:0;
+  animation:woFadeIn .5s ease .7s both;
+}
+@keyframes woFlyIn{
+  0%{transform:translateX(130vw) rotate(-8deg);opacity:0;}
+  60%{transform:translateX(-4vw) rotate(1deg);opacity:1;}
+  100%{transform:translateX(0) rotate(0deg);opacity:1;}
+}
+@keyframes woFadeIn{to{opacity:1;}}
+@media (prefers-reduced-motion:reduce){
+  .wo-flyover-name{animation:none;}
+  .wo-flyover-sub{animation:none;opacity:1;}
+}
+
+/* ---- In-app movement clip: real video, object-fit cover ---- */
+.wo-clip{
+  width:100%;
+  max-width:340px;
+  aspect-ratio:4/5;
+  margin:0 auto;
+  background:#171b26;
+  border:1px solid #262b38;
+  border-radius:14px;
+  overflow:hidden;
+  flex:0 0 auto;
+  position:relative;
+}
+.wo-clip-lg{max-width:360px;}
+.wo-clip-video{width:100%;height:100%;object-fit:cover;display:block;background:#171b26;}
+.wo-fig-svg{width:100%;height:100%;display:block;}
+.wo-clip-fallback{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:18px;text-align:center;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.82rem;
+  color:#9aa6bd;
+}
+.wo-clip-caption{
+  min-height:1.4em;
+  text-align:center;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.82rem;
+  color:#cfd3dc;
+  padding:0 10px;
+}
+.wo-yt-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  box-sizing:border-box;
+  text-align:center;
+  text-decoration:none;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.82rem;
+  color:#f3f1ea;
+  background:#1c2231;
+  border:1px solid #c84a3c;
+  border-radius:12px;
+  padding:12px;
+  flex:0 0 auto;
+}
+.wo-yt-link .yt-badge{color:#c84a3c;font-weight:700;}
+.run-dist{font-family:"Big Shoulders Display","Arial Narrow",sans-serif;font-weight:800;font-size:3.6rem;text-align:center;color:#f3f1ea;line-height:1;}
+.run-unit{font-size:1.1rem;color:#9aa6bd;margin-left:6px;text-transform:uppercase;}
+.run-stats-row{display:flex;gap:10px;justify-content:center;}
+.run-stat{display:flex;flex-direction:column;align-items:center;gap:2px;border:1px solid #262b38;border-radius:10px;padding:10px 18px;background:#141822;}
+.run-stat-v{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:1.1rem;color:#f3f1ea;}
+.run-stat-k{font-family:"JetBrains Mono",monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#9aa6bd;}
+.wo-rest-count{
+  font-family:"Big Shoulders Display","Arial Narrow",sans-serif;
+  font-weight:700;
+  font-size:3rem;
+  text-align:center;
+  letter-spacing:.02em;
+  margin:2px 0;
+  color:#1f7a6c;
+}
+.wo-fillbtn{
+  position:relative;
+  flex:0 0 auto;
+  width:100%;
+  box-sizing:border-box;
+  margin-top:4px;
+  padding:0;
+  height:52px;
+  border:1px solid #3a4050;
+  border-radius:12px;
+  background:#171b26;
+  overflow:hidden;
+  cursor:pointer;
+}
+.wo-fillbtn-fill{
+  position:absolute;
+  inset:0;
+  width:0%;
+  background:#3a4050;
+  transition:width 1s linear, background-color .3s ease;
+}
+.wo-fillbtn-fill.ready{background:#2fae63;}
+.wo-fillbtn-label{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  font-family:"JetBrains Mono",monospace;
+  font-size:.9rem;
+  color:#f3f1ea;
+}
+.wo-complete{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:20px;}
+.wo-complete h2{font-family:"Big Shoulders Display","Arial Narrow",sans-serif;font-size:2.4rem;margin:0;text-transform:uppercase;}
+.wo-complete p{color:#cfd3dc;margin:0;font-family:"JetBrains Mono",monospace;}
+.wo-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:360px;margin-top:8px;}
+.wo-stat{display:flex;flex-direction:column;gap:2px;border:1px solid #262b38;border-radius:10px;padding:12px 6px;background:#141822;}
+.wo-stat-v{font-family:"Big Shoulders Display","Arial Narrow",sans-serif;font-weight:700;font-size:1.5rem;color:#f3f1ea;}
+.wo-stat-k{font-family:"JetBrains Mono",monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#9aa6bd;}
+.wo-finish{margin-top:14px;padding:14px 30px;border:none;border-radius:12px;background:#c97a2e;color:#1b1206;font-family:"Big Shoulders Display","Arial Narrow",sans-serif;font-weight:700;font-size:1.1rem;text-transform:uppercase;cursor:pointer;}
+.wo-emoji{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:101;}
+.wo-emoji span{position:absolute;bottom:-8%;font-size:30px;animation:woFly linear forwards;}
+@keyframes woFly{to{transform:translate(var(--dx,0),-130vh) rotate(var(--rot,360deg));opacity:0;}}
+@media (prefers-reduced-motion:reduce){.wo-emoji span{animation:none;display:none;}}
+
+/* ---- Exercise card ---- */
+.ex{
+  display:grid;
+  grid-template-columns:168px 1fr;
+  gap:16px;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:4px;
+  padding:14px;
+  margin-bottom:14px;
+}
+@media (max-width:560px){.ex{grid-template-columns:1fr;}}
+.art{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-content:flex-start;}
+.diagram{display:flex;flex-direction:column;align-items:center;gap:3px;}
+.stack{position:relative;width:72px;background:var(--paper-2);border-radius:4px;overflow:hidden;}
+.stack img{display:block;width:100%;height:auto;}
+.stack img.hl{position:absolute;inset:0;width:100%;height:100%;}
+.poses{font-size:.6rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;text-align:center;max-width:76px;line-height:1.2;}
+:root[data-theme="dark"] .stack img.base{filter:invert(1) hue-rotate(180deg) brightness(1.15) contrast(.92);}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stack img.base{filter:invert(1) hue-rotate(180deg) brightness(1.15) contrast(.92);}}
+.ex h4{margin:0 0 2px;font-size:1.15rem;line-height:1.15;}
+.ex .meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px;}
+.tag{
+  font-size:.72rem;
+  padding:3px 8px;
+  border-radius:10px;
+  background:var(--paper-2);
+  color:var(--ink-soft);
+  border:1px solid var(--line);
+}
+.tag.load{background:var(--amber-soft);color:#5c3a10;border-color:transparent;}
+:root[data-theme="dark"] .tag.load{color:#f0ddbd;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag.load{color:#f0ddbd;}}
+.vid{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:.82rem;
+  text-decoration:none;
+  border:1px solid var(--teal);
+  color:var(--teal);
+  padding:4px 10px;
+  border-radius:14px;
+}
+.vid.pending{border-color:var(--line);color:var(--ink-soft);}
+.wt-field{display:inline-flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card);}
+.wt-step{width:26px;height:26px;border:none;background:var(--paper-2);color:var(--ink);font-size:1rem;line-height:1;cursor:pointer;}
+.wt-input{width:48px;border:none;background:transparent;color:var(--ink);font-family:"JetBrains Mono",monospace;font-size:.82rem;text-align:center;padding:0;-moz-appearance:textfield;}
+.wt-input::-webkit-outer-spin-button,.wt-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.wt-unit{font-size:.68rem;color:var(--ink-soft);padding-right:4px;}
+.wt-field-lg{width:100%;justify-content:center;padding-block:4px;}
+.wt-field-lg .wt-step{width:40px;height:40px;font-size:1.3rem;}
+.wt-field-lg .wt-input{width:70px;font-size:1.1rem;}
+.ex details{margin-top:6px;font-size:.88rem;}
+.ex summary{cursor:pointer;color:var(--ink-soft);font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;}
+.ex .cues{margin:8px 0 6px;padding-left:18px;}
+.ex .cues li{margin-bottom:3px;}
+.ex .mistakes{color:var(--coral);margin:4px 0;padding-left:18px;}
+.ex .mods{color:var(--ink-soft);font-style:italic;margin:4px 0 0;}
+.ex .track{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:.78rem;color:var(--ink-soft);}
+.ex .track input{accent-color:var(--teal);}
+
+/* ---- Running table ---- */
+table{width:100%;border-collapse:collapse;font-size:.88rem;}
+table th,table td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;}
+table th{font-family:"JetBrains Mono",monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);}
+.table-wrap{overflow-x:auto;margin-bottom:18px;}
+
+/* ---- Footer ---- */
+footer{
+  border-top:3px solid var(--ink);
+  padding-block:20px 40px;
+  margin-top:30px;
+  font-size:.85rem;
+  color:var(--ink-soft);
+}
+footer h3{font-size:1.1rem;color:var(--ink);}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;600&display=swap">
+</head>
+<body>
+
+<section class="hero">
+  <p class="kicker">Return-to-Sport Performance Program &middot; 12 Weeks</p>
+  <h1>Return to Court</h1>
+  <p class="lede">Built for you: age under 25, 6'1&Prime;/165&nbsp;lb, two right-ACL reconstructions (2018 hamstring autograft, 2023 allograft), cleared for all activity, with posterior right shoulder-blade pain from volleyball and tennis. Priority is knee durability and sport performance first, heavy lifting second.</p>
+
+  <div class="chart">
+    <div><span class="k">Knee history</span><span class="v">2&times; right ACL</span></div>
+    <div><span class="k">Grafts</span><span class="v">Hamstring &rarr; Allograft</span></div>
+    <div><span class="k">Clearance</span><span class="v">Full &mdash; incl. jump/cut</span></div>
+    <div><span class="k">Shoulder</span><span class="v">R. posterior/scap</span></div>
+    <div><span class="k">Current lifts</span><span class="v">S155 / D185 / B135</span></div>
+    <div><span class="k">Access</span><span class="v">College gym + PF</span></div>
+  </div>
+
+  <div class="callout warn" style="margin-bottom:10px;">
+    <b>Clinical note, not a restriction:</b> your surgeon/PT cleared you for everything, including jumping and cutting &mdash; that stands. But this is a <em>second</em> ACL on the same knee, the second graft is an allograft, and there's a family history of knee laxity. Full clearance means the tissue can tolerate load; it doesn't mean the movement pattern is already bulletproof. So Weeks 1&ndash;2 still spend real time on landing mechanics before loading jumps hard &mdash; not because you're held back, but because that's how you keep a twice-rebuilt knee out of a third surgery. If you ever get swelling, instability, or sharp pain, stop that movement and tell your surgeon/PT before pushing through it.
+  </div>
+  <div class="callout">
+    <b>Shoulder:</b> pain at the top/back of the right shoulder blade during overhead work (serving, hitting) usually points to a scapular control or rotator-cuff endurance issue rather than a structural tear &mdash; but I haven't examined you, so that's a working theory, not a diagnosis. Pulling volume runs roughly double pressing volume all 12 weeks, and cuff/scap work is on every upper day. If it hasn't improved in 4&ndash;6 weeks, get it looked at.
+  </div>
+</section>
+
+<div class="phases">
+  <div class="phase-card">
+    <div class="wk">Weeks 1&ndash;4</div>
+    <h3>Foundation</h3>
+    <p>Movement quality, moderate load (RPE 6&ndash;7), landing mechanics before jumping, walk/jog base building.</p>
+  </div>
+  <div class="phase-card">
+    <div class="wk">Weeks 5&ndash;8</div>
+    <h3>Build</h3>
+    <p>Heavier load (RPE 7&ndash;8), true plyometrics added, tempo runs, lateral agility.</p>
+  </div>
+  <div class="phase-card">
+    <div class="wk">Weeks 9&ndash;12</div>
+    <h3>Performance</h3>
+    <p>Peak strength (RPE 8&ndash;9), reactive agility, volleyball/tennis-specific drills, run intervals.</p>
+  </div>
+</div>
+
+<div class="phase-select">
+  <span class="lbl">Show numbers for:</span>
+  <div class="opts" id="phaseOpts">
+    <button data-phase="p1" aria-pressed="true">P1 &middot; 1&ndash;4</button>
+    <button data-phase="p2" aria-pressed="false">P2 &middot; 5&ndash;8</button>
+    <button data-phase="p3" aria-pressed="false">P3 &middot; 9&ndash;12</button>
+  </div>
+</div>
+
+<nav class="daynav" id="dayNav"></nav>
+
+<div id="daySections"></div>
+
+<section class="table-wrap">
+  <h2>Wednesday Base: Running Protocol</h2>
+  <p class="day-note">You're not currently running or training aerobically, so this builds from zero rather than assuming a base. Treadmill or outdoor, whichever you'll actually do six days a week is a myth &mdash; this is the one day built entirely around getting you back under load gradually.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Weeks</th><th>Session</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>1&ndash;2</td><td>Walk/jog intervals</td><td>20 min total: 2 min walk / 1 min easy jog, repeated. Flat, even ground.</td></tr>
+      <tr><td>3&ndash;4</td><td>Walk/jog intervals</td><td>25 min total: 1 min walk / 2 min easy jog, repeated.</td></tr>
+      <tr><td>5&ndash;6</td><td>Continuous easy jog</td><td>15&ndash;18 min continuous at a pace you could hold a conversation.</td></tr>
+      <tr><td>7&ndash;8</td><td>Easy jog + tempo</td><td>20 min easy jog, then 4&times;1 min at a quicker-but-controlled pace with 1 min easy jog between.</td></tr>
+      <tr><td>9&ndash;10</td><td>Continuous + strides</td><td>20 min continuous jog, finish with 4&times;20 sec relaxed strides (not sprints) on grass or turf.</td></tr>
+      <tr><td>11&ndash;12</td><td>Intervals</td><td>6&times;2 min at a hard-but-controlled pace, 90 sec easy jog between. This is the closest thing to match-conditioning.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="day-note"><a class="ext" href="#" id="runFormVideo">Running form primer</a> &mdash; <span class="mono">loading&hellip;</span></p>
+</section>
+
+<footer>
+  <h3>How to use this</h3>
+  <p>Every exercise card has a two-pose diagram (start &rarr; finish), the coaching cues that matter most for your knee/shoulder history, the most common form mistake to avoid, an easier/harder version, and a video &mdash; tap the channel name to see exactly where the demo starts. The <span class="mono">Show numbers for</span> toggle up top switches every set/rep target on the page between phases, so you don't have to hunt for your current week.</p>
+  <h3>Before every session</h3>
+  <p>5&ndash;8 min: easy bike or incline walk, leg swings (front/side) &times;10 each, hip airplane &times;5/side, band external rotations &times;15, 2&ndash;3 easy warm-up sets of the day's first lift before working weight.</p>
+  <h3>Disclaimer</h3>
+  <p>I'm acting as a sports-science-informed trainer here, not your surgeon or physical therapist, and I haven't examined your knee or shoulder. This program assumes the clearance and history you gave me is accurate. Any new swelling, instability, locking, or sharp (not muscular) pain means stop and check with your surgeon/PT before continuing that movement.</p>
+  <p style="font-size:.76rem;margin-top:14px;">Muscle-highlight diagrams adapted from the <a class="ext" href="https://github.com/wger-project/wger" target="_blank" rel="noopener">wger project</a> open exercise database, licensed <a class="ext" href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener">CC BY-SA 3.0</a>.</p>
+</footer>
+
+<div class="workout-overlay" id="workoutMode" hidden>
+  <div class="wo-top">
+    <button class="wo-close" id="woCloseBtn" aria-label="Exit workout">&#10005;</button>
+    <div class="wo-timer mono" id="woTimer">0:00</div>
+    <div class="wo-cal mono" id="woCalories">0 kcal</div>
+    <div class="wo-progress" id="woProgressText">1/1</div>
+  </div>
+  <div class="wo-dots" id="woDots"></div>
+  <div class="wo-slide" id="woSlide"></div>
+</div>
+<div class="wo-emoji" id="woEmoji"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- muscle-highlight diagrams, built from the wger open exercise
+   database (CC BY-SA 3.0): a grayscale anatomical base layered with a
+   colored overlay for each muscle this exercise works. ---------- */
+var MUSCLE_LABEL = {1:'Biceps',2:'Front delts',3:'Serratus',4:'Chest',5:'Triceps',6:'Abs',
+  7:'Calves',8:'Glutes',9:'Traps',10:'Quads',11:'Hamstrings',12:'Lats',13:'Brachialis',
+  14:'Obliques',15:'Soleus'};
+
+function diagramPanel(view, ids){
+  var base = 'assets/muscles/base_'+view+'.svg';
+  var layers = ids.map(function(id){ return '<img class="hl" alt="" src="assets/muscles/main/muscle-'+id+'.svg">'; }).join('');
+  var labels = ids.map(function(id){ return MUSCLE_LABEL[id]; }).join(' · ');
+  return '<div class="diagram"><div class="stack"><img class="base" alt="body outline, '+view+' view" src="'+base+'">'+layers+'</div><div class="poses">'+labels+'</div></div>';
+}
+function artBlock(muscles){
+  var out = '';
+  if(muscles.front && muscles.front.length) out += diagramPanel('front', muscles.front);
+  if(muscles.back && muscles.back.length) out += diagramPanel('back', muscles.back);
+  return out;
+}
+
+/* ---------- video lookup (filled in once sourced & verified; never guessed) ---------- */
+var VIDEOS = {
+  lat_pulldown:   {url:'https://www.youtube.com/watch?v=O94yEoGXtBY', channel:'Jeff Nippard', t:0},
+  face_pull:      {url:'https://www.youtube.com/watch?v=CU4Xc2qlLC0', channel:'Citizen Athletics', t:0},
+  band_er:        {url:'https://www.youtube.com/watch?v=3owqV4Dmdn4', channel:'MVMT Performance & Rehab', t:0},
+  wall_slide:     {url:'https://www.youtube.com/watch?v=UB_n4DxOTCo', channel:'Dr. Taylor Levick', t:0},
+  sa_row:         {url:'https://www.youtube.com/watch?v=gfUg6qWohTk', channel:'ATHLEAN-X', t:0},
+  ytw:            {url:'https://www.youtube.com/watch?v=8gBSQQSqXTg', channel:'MTB Strength Coach', t:0},
+  ngrip_bench:    {url:'https://www.youtube.com/watch?v=Oq5MMAbUE2o', channel:'J2FIT Strength & Conditioning', t:0},
+  landmine_press: {url:'https://www.youtube.com/watch?v=7eb_ziZFduE', channel:'FIT.nl', t:0},
+  cable_row:      {url:'https://www.youtube.com/watch?v=XaHV_8Nbyug', channel:'Team Evolve', t:0},
+  plank:          {url:'https://www.youtube.com/watch?v=6LqqeBtFn9M', channel:'Get Exercise Confident', t:0},
+  deadbug:        {url:'https://www.youtube.com/watch?v=-gRN_JyVTLY', channel:'Jack Hanrahan Fitness', t:0},
+  pallof:         {url:'https://www.youtube.com/watch?v=xeFp4MXad98', channel:'FIT.nl', t:0},
+  depth_drop:     {url:'https://www.youtube.com/watch?v=lCxMeAhj8A0', channel:'Hospital for Special Surgery', t:39},
+  box_jump:       {url:'https://www.youtube.com/watch?v=YLPQsdRDmB0', channel:'Peak Strength', t:0},
+  skater_jump:    {url:'https://www.youtube.com/watch?v=usZgF8TBWcA', channel:'Made Possible PT', t:0},
+  broad_jump:     {url:'https://www.youtube.com/watch?v=r-YCI6g4MNc', channel:'NCSA College Recruiting', t:0},
+  lat_shuffle:    {url:'https://www.youtube.com/watch?v=QFSdjLw93sA', channel:'SKLZ', t:0},
+  volley_approach:{url:'https://www.youtube.com/watch?v=B7vbjJ2wQQQ', channel:'Elevate Yourself', t:60},
+  tennis_split:   {url:'https://www.youtube.com/watch?v=J1UhPl1UrYs', channel:'Top Tennis Training', t:0},
+  running_form:   {url:'https://www.youtube.com/watch?v=gYajoeR_UF8', channel:'James Dunne', t:0},
+  bb_squat:    {url:'https://www.youtube.com/watch?v=SbgHegC6lEs', channel:'Squat University', t:0},
+  bulg_split:  {url:'https://www.youtube.com/watch?v=hiLF_pF3EJM', channel:'ATHLEAN-X', t:0},
+  stepdown:    {url:'https://www.youtube.com/watch?v=rvI7OxBQqS4', channel:'Physio REHAB', t:355},
+  walk_lunge:  {url:'https://www.youtube.com/watch?v=-yxNPwWlr8I', channel:'Untamed Strength', t:0},
+  nordic:      {url:'https://www.youtube.com/watch?v=_e9vFU9-tkc', channel:'E3 Rehab', t:123},
+  sl_calf:     {url:'https://www.youtube.com/watch?v=Ux47hU-ePXs', channel:'Physio Plus Fitness', t:0},
+  rdl:         {url:'https://www.youtube.com/watch?v=uhghy9pFIPY', channel:'E3 Rehab', t:82},
+  hip_thrust:  {url:'https://www.youtube.com/watch?v=LM8XHLYJoYs', channel:'Bret Contreras', t:0},
+  sl_rdl:      {url:'https://www.youtube.com/watch?v=Zfr6wizR8rs', channel:'Squat University', t:0},
+  band_walk:   {url:'https://www.youtube.com/watch?v=6eoK_yxY8Ak', channel:'OSU Wexner Sports Med', t:0},
+  copenhagen:  {url:'https://www.youtube.com/watch?v=kD1t1hWzIDE', channel:'E3 Rehab', t:20}
+}; // id -> {url, channel, t}
+
+function videoHtml(id){
+  var v = VIDEOS[id];
+  if(!v){ return '<span class="vid pending">Video: sourcing&hellip;</span>'; }
+  var tQS = v.t ? ('&t='+v.t+'s') : '';
+  return '<a class="vid ext" target="_blank" rel="noopener" href="'+v.url+tQS+'">&#9654; '+v.channel+(v.t?' @ '+fmtTime(v.t):'')+'</a>';
+}
+function fmtTime(sec){ var m=Math.floor(sec/60), s=sec%60; return m+':'+(s<10?'0':'')+s; }
+
+/* ---------- per-exercise weight: easily adjustable, persisted per device ---------- */
+function getWeight(id){
+  try{ var v = localStorage.getItem('r2c_wt_'+id); return v===null ? '' : v; }catch(e){ return ''; }
+}
+function setWeight(id, val){
+  try{ localStorage.setItem('r2c_wt_'+id, val); }catch(e){}
+}
+function weightFieldHtml(id, size){
+  var v = getWeight(id);
+  var cls = size==='lg' ? 'wt-field wt-field-lg' : 'wt-field';
+  return '<div class="'+cls+'" data-wt="'+id+'">'+
+    '<button type="button" class="wt-step" data-d="-5">&minus;</button>'+
+    '<input type="number" class="wt-input" inputmode="decimal" step="2.5" min="0" placeholder="0" value="'+v+'">'+
+    '<span class="wt-unit">lb</span>'+
+    '<button type="button" class="wt-step" data-d="5">+</button>'+
+  '</div>';
+}
+function wireWeightFields(root){
+  Array.prototype.forEach.call(root.querySelectorAll('.wt-field'), function(field){
+    var id = field.dataset.wt;
+    var input = field.querySelector('.wt-input');
+    input.addEventListener('change', function(){ setWeight(id, input.value); });
+    Array.prototype.forEach.call(field.querySelectorAll('.wt-step'), function(btn){
+      btn.addEventListener('click', function(){
+        var cur = parseFloat(input.value) || 0;
+        var next = Math.max(0, cur + parseFloat(btn.dataset.d));
+        input.value = next;
+        setWeight(id, next);
+      });
+    });
+  });
+}
+
+/* ---------- program data ---------- */
+var DAYS = [
+  {id:'mon',label:'Mon',name:'Lower A',focus:'Knee-dominant strength'},
+  {id:'tue',label:'Tue',name:'Upper Pull',focus:'Pulling + shoulder prehab'},
+  {id:'wed',label:'Wed',name:'Run Base',focus:'Aerobic base building'},
+  {id:'thu',label:'Thu',name:'Lower B',focus:'Hip-dominant / posterior chain'},
+  {id:'fri',label:'Fri',name:'Upper Balanced',focus:'Push/pull + core'},
+  {id:'sat',label:'Sat',name:'Power & Agility',focus:'Landing, jumping, cutting'},
+  {id:'sun',label:'Sun',name:'Rest',focus:'Full rest or light walk'}
+];
+
+function L(p1,p2,p3){ return {p1:p1,p2:p2,p3:p3}; }
+
+var EX = {
+  mon: [
+    {id:'bb_squat', name:'Barbell Back Squat', muscles:{front:[10],back:[8,11]},
+      load:L('3×8 @ ~115–125 lb','4×6 @ ~130–140 lb','5×5 @ ~140–150 lb'),
+      cues:['Knees track over your toes, not caving inward, especially on the right side &mdash; this is the #1 thing to watch given your history.','Brace your core before you descend, not after.','Push the floor apart with your feet on the way up.'],
+      mistakes:'Right knee drifting inward in the bottom third of the rep.',
+      mods:'Easier: goblet squat to a box. Harder: add a 2-second pause at the bottom.'},
+    {id:'bulg_split', name:'Bulgarian Split Squat (DB)', muscles:{front:[10],back:[8]},
+      load:L('3×10/side @ light-mod DB','3×8/side @ moderate DB','4×6/side @ heavier DB'),
+      cues:['Front shin stays close to vertical through the whole rep.','Torso stays tall; don’t let it pitch forward to cheat depth.'],
+      mistakes:'Pushing off the back foot instead of the front leg doing the work.',
+      mods:'Easier: bodyweight, hands on a rail. Harder: add a 2-count lowering phase.'},
+    {id:'stepdown', name:'Eccentric Step-Down', muscles:{front:[10],back:[8]},
+      load:L('3×8/side, slow 3-count','3×10/side, slow 4-count','3×12/side + small weight vest'),
+      cues:['Lower for a full 3&ndash;4 count &mdash; the control on the way down is the whole point.','Keep the kneecap pointing the same direction as your toes.'],
+      mistakes:'Rushing the descent and just dropping onto the bottom foot.',
+      mods:'Easier: shorter box (4–6"). Harder: taller box (10–12").'},
+    {id:'walk_lunge', name:'Walking Lunge (DB)', muscles:{front:[10],back:[8]},
+      load:L('2×10 steps/side','3×10 steps/side','3×12 steps/side @ heavier DB'),
+      cues:['Step long enough that the front knee doesn’t shoot past the toes.','Drive through the front heel to stand back up.'],
+      mistakes:'Short, choppy steps that dump weight onto the front knee.',
+      mods:'Easier: reverse lunge instead of walking. Harder: add a front-rack hold.'},
+    {id:'nordic', name:'Nordic Hamstring Curl', muscles:{back:[11]},
+      load:L('2×3–4 (assisted, band or partner)','3×5–6','3×8, minimal assistance'),
+      cues:['Lower as slowly as you can control &mdash; this is an eccentric hamstring exercise, speed defeats the purpose.','Keep hips extended, don’t let your butt pike up.'],
+      mistakes:'Letting the hips fold so the lower back takes over.',
+      mods:'Easier: more band/partner assistance, smaller range. Harder: less assistance, full range.'},
+    {id:'sl_calf', name:'Single-Leg Calf Raise', muscles:{back:[7,15]},
+      load:L('3×12/side','3×15/side','4×15/side holding a DB'),
+      cues:['Full stretch at the bottom, full rise onto the ball of the foot at the top.','Control the descent &mdash; don’t bounce.'],
+      mistakes:'Using a tiny, bouncy range of motion instead of full travel.',
+      mods:'Easier: both legs. Harder: elevate the heel on a step for more range.'}
+  ],
+  tue: [
+    {id:'lat_pulldown', name:'Lat Pulldown', muscles:{back:[12],front:[1]},
+      load:L('3×10','4×8','4×6 @ heavier'),
+      cues:['Pull with your elbows, not your hands &mdash; think elbows to back pockets.','Let your shoulder blades move; don’t lock them rigid.'],
+      mistakes:'Leaning back and turning it into a row to cheat the weight up.',
+      mods:'Easier: assisted pull-up machine. Harder: pull-ups.'},
+    {id:'face_pull', name:'Face Pull (cable)', muscles:{back:[9]},
+      load:L('3×15','3×15','4×15 @ heavier band/cable'),
+      cues:['Pull to your forehead with elbows high, rotate the hands back at the end.','Think about squeezing your shoulder blades down and together, not just bending the elbows.'],
+      mistakes:'Using momentum / yanking instead of a slow, controlled pull.',
+      mods:'Easier: light band. Harder: slow 3-count on the return.'},
+    {id:'band_er', name:'Band External Rotation', muscles:{front:[2]},
+      load:L('3×15/side, light band','3×15/side, moderate band','3×20/side, moderate band'),
+      cues:['Elbow stays pinned to your side the whole time &mdash; only the forearm rotates out.','Keep the movement slow and controlled; this is a small, precise muscle group.'],
+      mistakes:'Swinging the whole arm/shoulder forward instead of isolating rotation.',
+      mods:'Easier: lighter band. Harder: do it standing on one leg for a stability challenge.'},
+    {id:'wall_slide', name:'Scapular Wall Slide', muscles:{front:[3],back:[9]},
+      load:L('3×10','3×12','3×12 + 2-sec hold at top'),
+      cues:['Keep your lower back, head, and forearms in contact with the wall the whole time.','Slide arms up only as far as you can without your ribs flaring or your back arching.'],
+      mistakes:'Arching the lower back off the wall to force more range.',
+      mods:'Easier: smaller range of motion. Harder: do it standing away from the wall, same pattern.'},
+    {id:'sa_row', name:'Single-Arm DB Row', muscles:{back:[12,9],front:[1]},
+      load:L('3×10/side @ moderate','4×8/side @ heavier','4×6/side @ heavier'),
+      cues:['Pull your elbow back along your ribcage, not out to the side.','Keep your torso still &mdash; don’t rotate to help the weight up.'],
+      mistakes:'Twisting the torso and turning it into momentum instead of a strict pull.',
+      mods:'Easier: supported on an incline bench. Harder: pause 1 second at the top.'},
+    {id:'ytw', name:'Prone Y-T-W Raise', muscles:{back:[9],front:[2]},
+      load:L('2×8 each letter, no weight','3×10 each, light DB','3×12 each, light DB'),
+      cues:['Lead each raise with your thumb (Y and T) to favor the lower trap and rotator cuff.','Keep reps small and controlled &mdash; this isn’t a range-of-motion exercise, it’s a control exercise.'],
+      mistakes:'Using momentum to swing the arms up instead of lifting with the shoulder blade muscles.',
+      mods:'Easier: no weight, bodyweight only. Harder: light DBs or on an incline bench.'}
+  ],
+  thu: [
+    {id:'rdl', name:'Romanian Deadlift (barbell)', muscles:{back:[11,8]},
+      load:L('3×8 @ ~115–125 lb','4×6 @ ~135–145 lb','4×5 @ ~145–155 lb'),
+      cues:['Push your hips back first &mdash; the bar should stay close to your legs the whole way down.','Keep a soft bend in the knees that doesn’t change much through the rep; this is a hip hinge, not a squat.'],
+      mistakes:'Rounding the lower back to chase extra range of motion.',
+      mods:'Easier: dumbbells instead of barbell. Harder: single-leg RDL.'},
+    {id:'hip_thrust', name:'Barbell Hip Thrust', muscles:{back:[8,11]},
+      load:L('3×10 @ moderate','4×8 @ heavier','4×6 @ heavier'),
+      cues:['Drive through your heels and squeeze your glutes hard at the top &mdash; don’t just arch your lower back.','Tuck your chin slightly so you’re not hyperextending your neck to look up.'],
+      mistakes:'Finishing the rep by overextending the lower back instead of the hips.',
+      mods:'Easier: bodyweight glute bridge. Harder: single-leg hip thrust.'},
+    {id:'sl_rdl', name:'Single-Leg RDL (DB)', muscles:{back:[11,8]},
+      load:L('3×8/side, light DB','3×10/side, moderate DB','3×10/side, heavier DB'),
+      cues:['Keep your hips square to the floor &mdash; don’t let the back hip rotate open.','Reach the DB toward the floor while your back leg extends behind you for counterbalance.'],
+      mistakes:'Losing balance and twisting through the standing hip instead of staying square.',
+      mods:'Easier: hold onto something light for balance. Harder: no support, eyes closed briefly at the top.'},
+    {id:'band_walk', name:'Lateral Band Walk', muscles:{back:[8]},
+      load:L('3×10 steps/side, light band','3×12 steps/side, moderate band','3×15 steps/side, moderate band'),
+      cues:['Stay low in a mini-squat the whole time &mdash; don’t stand tall between steps.','Keep tension on the band at all times; don’t let your feet drift together.'],
+      mistakes:'Standing up straight between steps, which removes the glute tension that’s the point of the drill.',
+      mods:'Easier: lighter band, smaller steps. Harder: heavier band, lower squat position.'},
+    {id:'copenhagen', name:'Copenhagen Plank', muscles:{front:[10]},
+      load:L('2×15 sec/side (knee-supported)','3×15–20 sec/side','3×20–25 sec/side, full extension'),
+      cues:['Keep your hips stacked and lifted &mdash; don’t let your bottom hip sag toward the floor.','Breathe normally; don’t hold your breath through the hold.'],
+      mistakes:'Letting the hips rotate open instead of staying stacked.',
+      mods:'Easier: bend the top leg and rest it on a bench (shorter lever). Harder: extend the top leg fully.'}
+  ],
+  fri: [
+    {id:'ngrip_bench', name:'Neutral-Grip DB Bench Press', muscles:{front:[4],back:[5]},
+      load:L('3×10 @ moderate DB','4×8 @ heavier DB','4×6 @ heavier DB'),
+      cues:['Keep wrists stacked over elbows at the bottom &mdash; a neutral (palms-facing) grip is easier on the front of the shoulder.','Lower under control; don’t bounce the weight off the bottom.'],
+      mistakes:'Flaring the elbows out to 90° from the torso, which loads the front of the shoulder more.',
+      mods:'Easier: floor press (shorter range). Harder: add a 2-count pause at the chest.'},
+    {id:'landmine_press', name:'Landmine Press', muscles:{front:[2],back:[5]},
+      load:L('3×10/side','3×8/side @ heavier','4×6/side @ heavier'),
+      cues:['Press the bar up and slightly forward along its natural arc &mdash; don’t fight the path.','Brace your core; this is a great place to practice pressing without overloading the front of the shoulder.'],
+      mistakes:'Shrugging the shoulder up toward the ear instead of pressing straight through it.',
+      mods:'Easier: kneeling, half-kneeling for more stability. Harder: standing, offset stance.'},
+    {id:'cable_row', name:'Seated Cable Row', muscles:{back:[12,9]},
+      load:L('3×10','4×8 @ heavier','4×6 @ heavier'),
+      cues:['Lead with your elbows and squeeze your shoulder blades together at the end of the pull.','Keep a slight lean back fixed &mdash; don’t rock your torso to help the pull.'],
+      mistakes:'Rocking the torso forward and back to use momentum instead of the back muscles.',
+      mods:'Easier: lighter load, focus on the squeeze. Harder: single-arm version.'},
+    {id:'plank', name:'Front Plank', muscles:{front:[6]},
+      load:L('3×30–40 sec','3×45–60 sec','3×60–75 sec'),
+      cues:['Squeeze your glutes and brace your abs like you’re about to be poked in the stomach.','Keep a straight line from shoulders to ankles &mdash; no sagging hips, no piked-up hips.'],
+      mistakes:'Letting the hips sag toward the floor as fatigue sets in.',
+      mods:'Easier: on the knees. Harder: lift one foot a few inches off the ground periodically.'},
+    {id:'deadbug', name:'Dead Bug', muscles:{front:[6,14]},
+      load:L('3×8/side','3×10/side','3×12/side with a light DB/band'),
+      cues:['Keep your lower back flat against the floor the entire time &mdash; that’s the whole point of the exercise.','Move the opposite arm and leg slowly and in control.'],
+      mistakes:'Letting the lower back arch off the floor as the leg extends.',
+      mods:'Easier: smaller range, keep the knee bent further. Harder: full extension, add light resistance.'},
+    {id:'pallof', name:'Pallof Press (cable)', muscles:{front:[14,6]},
+      load:L('3×10/side','3×12/side @ heavier','3×12/side @ heavier, slower tempo'),
+      cues:['Resist the cable’s pull &mdash; your torso should not rotate at all as you press out.','Press straight out from your chest and bring it back with control.'],
+      mistakes:'Letting the hips or shoulders rotate toward the cable.',
+      mods:'Easier: lighter resistance, closer stance to the anchor. Harder: half-kneeling stance.'}
+  ],
+  sat: [
+    {id:'depth_drop', name:'Depth Drop to Stabilization', muscles:{front:[10],back:[8]},
+      load:L('3×5 from a 6– 8" step','3×6 from a 10–12" step','3×6 from a 12–14" step, add a small hop out'),
+      cues:['Land quietly, with knees tracking over your toes and absorbing through your hips/knees, not your lower back.','Hold the landing position for a full 2 seconds before resetting.'],
+      mistakes:'Landing stiff-legged and loud, or letting the right knee cave inward on contact.',
+      mods:'Easier: lower step, both feet land together. Harder: taller step, single-leg landing.'},
+    {id:'box_jump', name:'Box Jump', muscles:{front:[10],back:[8,7]},
+      load:L('3×5 (low box, step down after each rep)','4×5 (moderate box)','4×6 (moderate–tall box)'),
+      cues:['Swing your arms and load your hips the same way every rep &mdash; consistency beats height.','Step down off the box every time once fatigued; don’t jump down.'],
+      mistakes:'Chasing a taller box before the landing mechanics underneath it are solid.',
+      mods:'Easier: smaller box, or a line jump with no box at all. Harder: taller box.'},
+    {id:'skater_jump', name:'Lateral Bound (Skater Jump)', muscles:{front:[10],back:[8]},
+      load:L('2×6/side, small bounds','3×6/side, bigger bounds','3×8/side with a 1-sec hold each landing'),
+      cues:['Stick each landing and hold it for a full count before bounding to the other side &mdash; this is about control, not speed, early on.','Keep your chest up and knee aligned over the foot on landing.'],
+      mistakes:'Rushing from one landing straight into the next bound before the landing knee is stable.',
+      mods:'Easier: smaller lateral distance. Harder: continuous bounds without the stick-and-hold pause.'},
+    {id:'broad_jump', name:'Broad Jump', muscles:{front:[10],back:[8]},
+      load:L('3×3 (reset between each)','4×3','4×4, measuring distance'),
+      cues:['Swing your arms forward hard and extend your hips fully &mdash; most people undershoot by not finishing hip extension.','Land with soft knees and stick it; no stumbling forward.'],
+      mistakes:'Landing with locked-out knees instead of absorbing through a soft bend.',
+      mods:'Easier: smaller jump, focus on landing. Harder: three consecutive jumps in a row (triple broad jump).'},
+    {id:'lat_shuffle', name:'Lateral Shuffle Drill', muscles:{front:[10],back:[8]},
+      load:L('4×10 sec, moderate speed','5×10 sec, higher speed','5×10 sec max speed + direction call-outs'),
+      cues:['Stay low with a slight knee bend; don’t let your feet cross or your hips rise up.','Push off the trail leg actively rather than just falling sideways.'],
+      mistakes:'Crossing the feet instead of a true lateral shuffle, which stresses the knee in a less controlled way.',
+      mods:'Easier: slower, smaller steps. Harder: add a reactive cue (partner points, you shuffle that direction).'},
+    {id:'volley_approach', name:'Volleyball Approach & Jump-Land', muscles:{front:[10],back:[7]},
+      load:L('3×4 approaches, focus on footwork only','4×4, add the jump','4×6, full approach + jump + stick landing'),
+      cues:['Plant and load on both feet together before takeoff &mdash; most knee stress on landing comes from an uneven, one-sided landing after the attack.','Land the same way you took off: balanced, knees bent, absorbing through the hips.'],
+      mistakes:'Landing with most of the weight shifted onto the right leg alone after the approach.',
+      mods:'Easier: walk through the approach steps with no jump. Harder: full-speed approach off a short run-up.'},
+    {id:'tennis_split', name:'Tennis Split-Step & Lateral Cut', muscles:{front:[10],back:[7]},
+      load:L('3×6 reps, moderate speed','4×6, higher speed','4×8, near-match speed'),
+      cues:['Time the split-step to land just as your opponent (or the ball machine/feed) makes contact, then push off into the cut.','Push off the outside leg to change direction &mdash; don’t just lean and let momentum carry you.'],
+      mistakes:'Standing flat-footed instead of loading into the split-step before cutting.',
+      mods:'Easier: cut to a cone at a set distance, no reaction component. Harder: react to a partner’s random direction call.'}
+  ]
+};
+
+/* ---------- build DOM ---------- */
+var nav = document.getElementById('dayNav');
+var secWrap = document.getElementById('daySections');
+var currentPhase = 'p1';
+
+DAYS.forEach(function(d){
+  var btn = document.createElement('button');
+  btn.textContent = d.label+' · '+d.name;
+  btn.dataset.day = d.id;
+  btn.setAttribute('aria-pressed', d.id==='mon' ? 'true':'false');
+  btn.addEventListener('click', function(){ showDay(d.id); });
+  nav.appendChild(btn);
+
+  var sec = document.createElement('section');
+  sec.className = 'day-section';
+  sec.id = 'day-'+d.id;
+  if(d.id!=='mon') sec.hidden = true;
+
+  var head = document.createElement('div');
+  head.className = 'day-head';
+  head.innerHTML = '<h2>'+d.label+' &mdash; '+d.name+'</h2><span class="focus">'+d.focus+'</span>'+
+    ((EX[d.id]&&EX[d.id].length) ? '<button class="start-wo" data-day="'+d.id+'">&#9654; Start Workout</button>' : '')+
+    (d.id==='wed' ? '<button class="start-wo start-run" id="startRunBtn">&#9654; Start Run</button>' : '');
+  sec.appendChild(head);
+
+  if(d.id==='wed'){
+    var note = document.createElement('p');
+    note.className = 'day-note';
+    note.innerHTML = 'See the Running Protocol table below the daily sections for the week-by-week plan.';
+    sec.appendChild(note);
+  } else if(d.id==='sun'){
+    var note2 = document.createElement('p');
+    note2.className = 'day-note';
+    note2.innerHTML = 'Full rest, or an easy walk and light stretching. No lifting, running, or jumping. Recovery is part of the program, not a day off from it.';
+    sec.appendChild(note2);
+  } else {
+    (EX[d.id]||[]).forEach(function(ex){
+      sec.appendChild(buildExCard(ex, d.id));
+    });
+  }
+
+  secWrap.appendChild(sec);
+});
+
+function buildExCard(ex, dayId){
+  var card = document.createElement('article');
+  card.className = 'ex';
+  var art = document.createElement('div');
+  art.className = 'art';
+  art.innerHTML = artBlock(ex.muscles);
+
+  var body = document.createElement('div');
+  var loadId = 'load-'+ex.id;
+  body.innerHTML =
+    '<h4>'+ex.name+'</h4>'+
+    '<div class="meta-row"><span class="tag load" id="'+loadId+'">'+ex.load[currentPhase]+'</span>'+videoHtml(ex.id)+'</div>'+
+    '<div class="meta-row">'+weightFieldHtml(ex.id)+'</div>'+
+    '<details><summary>Cues &amp; common mistake</summary>'+
+      '<ul class="cues">'+ex.cues.map(function(c){return '<li>'+c+'</li>';}).join('')+'</ul>'+
+      '<p class="mistakes">Watch for: '+ex.mistakes+'</p>'+
+      '<p class="mods">'+ex.mods+'</p>'+
+    '</details>'+
+    '<label class="track"><input type="checkbox" data-track="'+dayId+'-'+ex.id+'"> done this session</label>';
+
+  card.appendChild(art);
+  card.appendChild(body);
+  card._loadEl = body.querySelector('#'+loadId);
+  card._loadData = ex.load;
+  wireWeightFields(body);
+  return card;
+}
+
+function showDay(id){
+  DAYS.forEach(function(d){
+    document.getElementById('day-'+d.id).hidden = (d.id!==id);
+  });
+  Array.prototype.forEach.call(nav.children, function(b){
+    b.setAttribute('aria-pressed', b.dataset.day===id ? 'true':'false');
+  });
+}
+
+/* phase toggle rewires every visible .tag.load text */
+var allCards = [];
+Array.prototype.forEach.call(secWrap.querySelectorAll('.ex'), function(c){ allCards.push(c); });
+
+document.getElementById('phaseOpts').addEventListener('click', function(e){
+  var btn = e.target.closest('button[data-phase]');
+  if(!btn) return;
+  currentPhase = btn.dataset.phase;
+  Array.prototype.forEach.call(this.children, function(b){ b.setAttribute('aria-pressed', b===btn?'true':'false'); });
+  // re-render load text for every card by re-walking EX data (cards stored load text directly, so recompute from DOM data)
+  Array.prototype.forEach.call(document.querySelectorAll('.tag.load'), function(el){
+    var id = el.id.replace('load-','');
+    for(var dk in EX){
+      var found = EX[dk].find(function(x){return x.id===id;});
+      if(found){ el.textContent = found.load[currentPhase]; break; }
+    }
+  });
+}.bind(document.getElementById('phaseOpts')));
+
+/* localStorage checkbox persistence (per-viewer convenience only) */
+try{
+  Array.prototype.forEach.call(document.querySelectorAll('[data-track]'), function(cb){
+    var key = 'r2c_'+cb.dataset.track;
+    cb.checked = localStorage.getItem(key)==='1';
+    cb.addEventListener('change', function(){
+      try{ localStorage.setItem(key, cb.checked?'1':'0'); }catch(e){}
+    });
+  });
+}catch(e){}
+
+/* running form video slot */
+(function(){
+  var el = document.getElementById('runFormVideo');
+  var v = VIDEOS['running_form'];
+  if(v){
+    el.href = v.url + (v.t?('&t='+v.t+'s'):'');
+    el.nextSibling.textContent = ' '+v.channel+(v.t?' @ '+fmtTime(v.t):'');
+  } else {
+    el.removeAttribute('href');
+    el.style.pointerEvents='none';
+    el.style.opacity='.55';
+    el.nextSibling.textContent = ' sourcing a verified video…';
+  }
+})();
+
+/* ---------- Workout Mode: full-screen, one exercise at a time, timed ----------
+   Per exercise: DEMO (video, ~30s, auto-advances) -> WORK (Rep Done per set)
+   -> REST (countdown between sets) -> loops sets -> next exercise's DEMO. */
+var DEMO_SECONDS = 30;
+var REST = {
+  bb_squat:120, bulg_split:90, stepdown:60, walk_lunge:75, nordic:75, sl_calf:45,
+  lat_pulldown:75, face_pull:45, band_er:30, wall_slide:30, sa_row:75, ytw:30,
+  rdl:120, hip_thrust:90, sl_rdl:75, band_walk:30, copenhagen:30,
+  ngrip_bench:90, landmine_press:75, cable_row:75, plank:45, deadbug:30, pallof:45,
+  depth_drop:60, box_jump:90, skater_jump:60, broad_jump:90, lat_shuffle:60,
+  volley_approach:90, tennis_split:60
+};
+
+var BODYWEIGHT_KG = 74.8; /* 165 lb, from the program profile */
+var MET = {
+  bb_squat:6, bulg_split:5, stepdown:4, walk_lunge:4.5, nordic:4, sl_calf:3.5,
+  lat_pulldown:4, face_pull:3, band_er:2.5, wall_slide:2.5, sa_row:4, ytw:3,
+  rdl:6, hip_thrust:5, sl_rdl:4, band_walk:3.5, copenhagen:3,
+  ngrip_bench:5, landmine_press:4.5, cable_row:4, plank:3, deadbug:3, pallof:3,
+  depth_drop:6, box_jump:8, skater_jump:7, broad_jump:7, lat_shuffle:7,
+  volley_approach:7.5, tennis_split:7.5
+};
+
+var WORKOUT = { day:null, list:[], idx:0, setIdx:1, totalSets:1, startTime:0,
+  timerInt:null, demoInt:null, restInt:null, flyTO:null, capInt:null, clipCtrl:null,
+  wakeLock:null, calBurned:0, log:[] };
+
+function woFmt(sec){ var m=Math.floor(sec/60), s=sec%60; return m+':'+(s<10?'0':'')+s; }
+function woParseReps(loadStr){
+  var m = /×\s*(\d+)/.exec(loadStr||'');
+  return m ? parseInt(m[1],10) : 1;
+}
+function woKcalForSecond(exId){
+  var met = MET[exId] || 4;
+  return (met*3.5*BODYWEIGHT_KG/200)/60; /* kcal per second */
+}
+function woParseSets(loadStr){
+  var m = /^(\d+)\s*×/.exec(loadStr||'');
+  return m ? parseInt(m[1],10) : 3;
+}
+function woClearStageTimers(){
+  if(WORKOUT.demoInt){ clearInterval(WORKOUT.demoInt); WORKOUT.demoInt=null; }
+  if(WORKOUT.restInt){ clearInterval(WORKOUT.restInt); WORKOUT.restInt=null; }
+  if(WORKOUT.flyTO){ clearTimeout(WORKOUT.flyTO); WORKOUT.flyTO=null; }
+  if(WORKOUT.capInt){ clearInterval(WORKOUT.capInt); WORKOUT.capInt=null; }
+  if(WORKOUT.clipCtrl){ WORKOUT.clipCtrl.stop(); WORKOUT.clipCtrl=null; }
+}
+
+/* ---------- in-app movement clip: an animated illustrated figure ("ancient
+   Israelite man" — robe gathered/belted at the waist, long beard, sandals;
+   an original design, not based on any copyrighted character) performing
+   each exercise, built from the same kind of pose-tween rig used earlier
+   in this project. Explicit one-time override of the prior "real footage
+   only" rule — see memory: feedback_no_stick_figures. ---------- */
+var FIG_POSES = {
+  STAND:{head:[60,24],sh:[60,46],elbow:[71,66],hand:[77,86],hip:[60,88],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[62,122],knee2:[62,122]},
+  ATHLETIC:{head:[58,32],sh:[58,54],elbow:[70,72],hand:[64,92],hip:[55,95],ankle1:[59,152],toe1:[75,153],ankle2:[59,152],toe2:[75,153],knee1:[64,126],knee2:[64,126]},
+  SQUAT_BTM:{head:[52,54],sh:[53,74],elbow:[36,84],hand:[26,98],hip:[48,110],ankle1:[59,152],toe1:[76,153],ankle2:[59,152],toe2:[76,153],knee1:[66,126],knee2:[66,126]},
+  HINGE_TOP:{head:[60,24],sh:[60,46],elbow:[63,66],hand:[63,90],hip:[60,88],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[62,122],knee2:[62,122]},
+  HINGE_BTM:{head:[88,52],sh:[79,68],elbow:[76,86],hand:[73,106],hip:[54,80],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[58,118],knee2:[58,118]},
+  LUNGE:{head:[58,44],sh:[58,66],elbow:[68,80],hand:[70,100],hip:[57,104],knee1:[76,130],ankle1:[79,152],toe1:[94,153],knee2:[40,136],ankle2:[35,152],toe2:[46,154]},
+  STEPDOWN:{head:[66,48],sh:[64,70],elbow:[74,84],hand:[76,104],hip:[62,106],knee1:[78,132],ankle1:[80,152],toe1:[94,153],knee2:[48,120],ankle2:[42,112],toe2:[56,112]},
+  PRESS_BTM:{head:[60,34],sh:[60,56],elbow:[76,64],hand:[88,54],hip:[60,90],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[62,124],knee2:[62,124]},
+  PRESS_TOP:{head:[60,22],sh:[60,46],elbow:[80,40],hand:[96,24],hip:[60,88],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[62,122],knee2:[62,122]},
+  ROW_START:{head:[70,32],sh:[66,54],elbow:[86,66],hand:[102,72],hip:[60,88],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[62,122],knee2:[62,122]},
+  ROW_END:{head:[68,32],sh:[64,54],elbow:[72,62],hand:[58,70],hip:[60,88],ankle1:[60,152],toe1:[76,153],ankle2:[60,152],toe2:[76,153],knee1:[62,122],knee2:[62,122]},
+  PLANK_LOW:{head:[16,78],sh:[36,82],elbow:[36,96],hand:[36,106],hip:[70,84],ankle1:[114,87],toe1:[119,80],ankle2:[114,87],toe2:[119,80],knee1:[96,86],knee2:[96,86]},
+  PLANK_WOBBLE:{head:[16,80],sh:[36,85],elbow:[36,98],hand:[36,108],hip:[70,89],ankle1:[114,88],toe1:[119,81],ankle2:[114,88],toe2:[119,81],knee1:[96,87],knee2:[96,87]},
+  CRUCH_LOAD:{head:[56,62],sh:[56,84],elbow:[36,92],hand:[24,102],hip:[50,106],ankle1:[58,152],toe1:[73,153],ankle2:[58,152],toe2:[73,153],knee1:[64,130],knee2:[64,130]},
+  EXTEND_AIR:{head:[58,10],sh:[58,32],elbow:[72,16],hand:[82,2],hip:[58,58],ankle1:[62,126],toe1:[70,132],ankle2:[62,126],toe2:[70,132],knee1:[60,94],knee2:[60,94]},
+  BAND_WALK_A:{head:[60,32],sh:[60,54],elbow:[48,68],hand:[40,84],hip:[58,92],knee1:[72,122],ankle1:[80,150],toe1:[94,151],knee2:[46,120],ankle2:[38,150],toe2:[24,151]},
+  BAND_WALK_B:{head:[62,32],sh:[62,54],elbow:[74,68],hand:[82,84],hip:[64,92],knee1:[50,122],ankle1:[42,150],toe1:[28,151],knee2:[76,120],ankle2:[84,150],toe2:[98,151]}
+};
+var FIG_MAP = {
+  bb_squat:{a:'STAND',b:'SQUAT_BTM'}, bulg_split:{a:'STAND',b:'LUNGE'},
+  stepdown:{a:'STEPDOWN',b:'STAND'}, walk_lunge:{a:'STAND',b:'LUNGE'},
+  nordic:{a:'PLANK_LOW',b:'STAND'}, sl_calf:{a:'STAND',b:'ATHLETIC'},
+  lat_pulldown:{a:'ROW_START',b:'ROW_END'}, face_pull:{a:'ROW_START',b:'ROW_END'},
+  band_er:{a:'ROW_START',b:'ROW_END'}, wall_slide:{a:'PRESS_BTM',b:'PRESS_TOP'},
+  sa_row:{a:'ROW_START',b:'ROW_END'}, ytw:{a:'PLANK_LOW',b:'ROW_END'},
+  rdl:{a:'HINGE_TOP',b:'HINGE_BTM'}, hip_thrust:{a:'HINGE_BTM',b:'HINGE_TOP'},
+  sl_rdl:{a:'STAND',b:'HINGE_BTM'}, band_walk:{a:'BAND_WALK_A',b:'BAND_WALK_B'},
+  copenhagen:{a:'PLANK_LOW',b:'PLANK_WOBBLE'},
+  ngrip_bench:{a:'PRESS_BTM',b:'PRESS_TOP'}, landmine_press:{a:'PRESS_BTM',b:'PRESS_TOP'},
+  cable_row:{a:'ROW_START',b:'ROW_END'}, plank:{a:'PLANK_LOW',b:'PLANK_WOBBLE'},
+  deadbug:{a:'PLANK_LOW',b:'PLANK_WOBBLE'}, pallof:{a:'PRESS_BTM',b:'PRESS_TOP'},
+  depth_drop:{a:'ATHLETIC',b:'CRUCH_LOAD'}, box_jump:{a:'CRUCH_LOAD',b:'EXTEND_AIR'},
+  skater_jump:{a:'ATHLETIC',b:'CRUCH_LOAD'}, broad_jump:{a:'CRUCH_LOAD',b:'EXTEND_AIR'},
+  lat_shuffle:{a:'BAND_WALK_A',b:'BAND_WALK_B'}, volley_approach:{a:'ATHLETIC',b:'CRUCH_LOAD'},
+  tennis_split:{a:'ATHLETIC',b:'BAND_WALK_A'}, running_form:{a:'ATHLETIC',b:'BAND_WALK_A'}
+};
+var FIG_KEYS = ['head','sh','elbow','hand','hip','knee1','ankle1','toe1','knee2','ankle2','toe2'];
+function figPerp(dx,dy){ var len=Math.sqrt(dx*dx+dy*dy)||1; return [-dy/len, dx/len]; }
+function figSvgMarkup(){
+  return '<svg viewBox="0 0 120 170" class="wo-fig-svg" xmlns="http://www.w3.org/2000/svg">'+
+    '<ellipse cx="60" cy="160" rx="27" ry="5" fill="rgba(0,0,0,.18)"/>'+
+    '<line id="F_leg2a" stroke="#c99a6b" stroke-width="6" stroke-linecap="round"/>'+
+    '<line id="F_leg2b" stroke="#c99a6b" stroke-width="6" stroke-linecap="round"/>'+
+    '<line id="F_leg1a" stroke="#d8ab7a" stroke-width="6" stroke-linecap="round"/>'+
+    '<line id="F_leg1b" stroke="#d8ab7a" stroke-width="6" stroke-linecap="round"/>'+
+    '<line id="F_sandal1" stroke="#6b4a2e" stroke-width="2.5" stroke-linecap="round"/>'+
+    '<line id="F_sandal2" stroke="#6b4a2e" stroke-width="2.5" stroke-linecap="round"/>'+
+    '<line id="F_arm2" stroke="#c99a6b" stroke-width="6" stroke-linecap="round"/>'+
+    '<polygon id="F_robe" fill="#a8703f" stroke="#7a4e28" stroke-width="1.5"/>'+
+    '<line id="F_belt" stroke="#5c3a1e" stroke-width="3" stroke-linecap="round"/>'+
+    '<line id="F_arm1" stroke="#d8ab7a" stroke-width="6" stroke-linecap="round"/>'+
+    '<path id="F_beard" fill="#8a8178" stroke="#6b6358" stroke-width="1"/>'+
+    '<circle id="F_head" r="11" fill="#d8ab7a" stroke="#7a4e28" stroke-width="1.5"/>'+
+    '<circle id="F_eye1" r="1.4" fill="#2b1d12"/>'+
+    '<circle id="F_eye2" r="1.4" fill="#2b1d12"/>'+
+  '</svg>';
+}
+function figLerpPt(p,q,t){ return [p[0]+(q[0]-p[0])*t, p[1]+(q[1]-p[1])*t]; }
+function figTweenPose(a,b,t){
+  var out={};
+  FIG_KEYS.forEach(function(k){ out[k]=figLerpPt(a[k],b[k],t); });
+  return out;
+}
+function figApply(svg,pose){
+  function setL(id,p,q){ var el=svg.querySelector('#'+id); if(el){ el.setAttribute('x1',p[0]); el.setAttribute('y1',p[1]); el.setAttribute('x2',q[0]); el.setAttribute('y2',q[1]); } }
+  function setC(id,p){ var el=svg.querySelector('#'+id); if(el){ el.setAttribute('cx',p[0]); el.setAttribute('cy',p[1]); } }
+  setL('F_arm1',pose.sh,pose.elbow); setL('F_arm2',pose.elbow,pose.hand);
+  setL('F_leg1a',pose.hip,pose.knee1); setL('F_leg1b',pose.knee1,pose.ankle1);
+  setL('F_leg2a',pose.hip,pose.knee2); setL('F_leg2b',pose.knee2,pose.ankle2);
+  setL('F_sandal1',[pose.ankle1[0]-5,pose.ankle1[1]+2],[pose.toe1[0],pose.toe1[1]-2]);
+  setL('F_sandal2',[pose.ankle2[0]-5,pose.ankle2[1]+2],[pose.toe2[0],pose.toe2[1]-2]);
+  var hx=pose.head[0], hy=pose.head[1];
+  setC('F_head',pose.head);
+  setC('F_eye1',[hx-4,hy-1]); setC('F_eye2',[hx+4,hy-1]);
+  var beard = svg.querySelector('#F_beard');
+  if(beard){
+    beard.setAttribute('d','M '+(hx-8)+' '+(hy+4)+' Q '+(hx-6)+' '+(hy+16)+' '+hx+' '+(hy+14)+
+      ' Q '+(hx+6)+' '+(hy+16)+' '+(hx+8)+' '+(hy+4)+
+      ' Q '+hx+' '+(hy+10)+' '+(hx-8)+' '+(hy+4)+' Z');
+  }
+  var dx = pose.hip[0]-pose.sh[0], dy = pose.hip[1]-pose.sh[1];
+  var p = figPerp(dx,dy);
+  var wTop=8, wBot=15;
+  var r1=[pose.sh[0]+p[0]*wTop, pose.sh[1]+p[1]*wTop];
+  var r2=[pose.sh[0]-p[0]*wTop, pose.sh[1]-p[1]*wTop];
+  var r3=[pose.hip[0]-p[0]*wBot, pose.hip[1]-p[1]*wBot];
+  var r4=[pose.hip[0]+p[0]*wBot, pose.hip[1]+p[1]*wBot];
+  var robe = svg.querySelector('#F_robe');
+  if(robe) robe.setAttribute('points', [r1,r2,r3,r4].map(function(pt){return pt[0]+','+pt[1];}).join(' '));
+  setL('F_belt', r4, r3);
+}
+function figEase(t){ return -(Math.cos(Math.PI*t)-1)/2; }
+function mountClip(container, exId){
+  var def = FIG_MAP[exId];
+  if(!container || !def) return { stop:function(){} };
+  container.innerHTML = figSvgMarkup();
+  var svg = container.querySelector('.wo-fig-svg');
+  var poseA = FIG_POSES[def.a], poseB = FIG_POSES[def.b];
+  figApply(svg, poseA);
+  var cycleMs = 1500, start = performance.now(), raf = null, stopped = false;
+  function frame(now){
+    if(stopped) return;
+    var elapsed = (now-start) % (cycleMs*2);
+    var t = elapsed < cycleMs ? elapsed/cycleMs : (cycleMs*2-elapsed)/cycleMs;
+    figApply(svg, figTweenPose(poseA, poseB, figEase(t)));
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  return { stop:function(){ stopped=true; if(raf) cancelAnimationFrame(raf); } };
+}
+function woCycleCaptions(cues, el){
+  if(!cues || !cues.length || !el) return;
+  var i=0;
+  el.textContent = cues[0];
+  WORKOUT.capInt = setInterval(function(){
+    i=(i+1)%cues.length;
+    el.textContent = cues[i];
+  }, 4000);
+}
+
+function startWorkout(dayId){
+  var list = EX[dayId];
+  if(!list || !list.length) return;
+  WORKOUT.day = dayId; WORKOUT.list = list; WORKOUT.idx = 0; WORKOUT.startTime = Date.now();
+  WORKOUT.calBurned = 0; WORKOUT.log = [];
+  document.getElementById('workoutMode').hidden = false;
+  document.body.style.overflow = 'hidden';
+  if(WORKOUT.timerInt) clearInterval(WORKOUT.timerInt);
+  WORKOUT.timerInt = setInterval(woUpdateTimer, 1000);
+  woUpdateTimer();
+  woRequestWakeLock();
+  woEnterExercise();
+}
+
+function woRequestWakeLock(){
+  try{
+    if('wakeLock' in navigator){
+      navigator.wakeLock.request('screen').then(function(lock){
+        WORKOUT.wakeLock = lock;
+      }).catch(function(){ /* not critical; workout still tracks via Date.now() */ });
+    }
+  }catch(e){}
+}
+document.addEventListener('visibilitychange', function(){
+  if(document.visibilityState === 'visible' && !document.getElementById('workoutMode').hidden){
+    woRequestWakeLock();
+  }
+});
+
+function woUpdateTimer(){
+  var el = document.getElementById('woTimer');
+  if(el) el.textContent = woFmt(Math.floor((Date.now()-WORKOUT.startTime)/1000));
+  var ex = WORKOUT.list[WORKOUT.idx];
+  if(ex){ WORKOUT.calBurned += woKcalForSecond(ex.id); }
+  var cal = document.getElementById('woCalories');
+  if(cal) cal.textContent = Math.round(WORKOUT.calBurned)+' kcal';
+}
+
+function woRenderDots(){
+  var wrap = document.getElementById('woDots');
+  wrap.innerHTML = WORKOUT.list.map(function(_,i){
+    var cls = i<WORKOUT.idx ? 'done' : (i===WORKOUT.idx ? 'current' : '');
+    return '<span class="'+cls+'"></span>';
+  }).join('');
+  var prog = document.getElementById('woProgressText');
+  if(prog) prog.textContent = (WORKOUT.idx+1)+'/'+WORKOUT.list.length;
+}
+
+function woEnterExercise(){
+  var ex = WORKOUT.list[WORKOUT.idx];
+  WORKOUT.setIdx = 1;
+  WORKOUT.totalSets = woParseSets(ex.load[currentPhase]);
+  woRenderDots();
+  woShowFlyover();
+}
+
+var FLYOVER_SECONDS = 30;
+
+function woYtLinkHtml(exId){
+  var v = VIDEOS[exId];
+  if(!v) return '';
+  var tQS = v.t ? ('&t='+v.t+'s') : '';
+  return '<a class="wo-yt-link" target="_blank" rel="noopener" href="'+v.url+tQS+'">'+
+    '<span class="yt-badge">&#9654; YouTube</span> Watch the verified demo &mdash; '+v.channel+(v.t?' @ '+woFmt(v.t):'')+' &#8599;'+
+  '</a>';
+}
+
+function woShowFlyover(){
+  woClearStageTimers();
+  var ex = WORKOUT.list[WORKOUT.idx];
+  var slide = document.getElementById('woSlide');
+  slide.innerHTML =
+    '<div class="wo-tag-stage">Quick look</div>'+
+    '<span class="wo-flyover-name">'+ex.name+'</span>'+
+    '<div class="wo-clip" id="woClip1"></div>'+
+    '<div class="wo-clip-caption" id="woClipCaption"></div>'+
+    '<button class="wo-skip" id="woSkipFly">Next &#9654;</button>';
+  slide.scrollTop = 0;
+  WORKOUT.clipCtrl = mountClip(document.getElementById('woClip1'), ex.id);
+  woCycleCaptions(ex.cues, document.getElementById('woClipCaption'));
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('woSkipFly').addEventListener('click', function(){ woClearStageTimers(); woEnterDemo(); });
+  WORKOUT.flyTO = setTimeout(function(){ woClearStageTimers(); woEnterDemo(); }, reduce ? 50 : FLYOVER_SECONDS*1000);
+}
+
+function woEnterDemo(){
+  woClearStageTimers();
+  var ex = WORKOUT.list[WORKOUT.idx];
+  var slide = document.getElementById('woSlide');
+  slide.innerHTML =
+    '<div class="wo-tag-stage">Watch the move</div>'+
+    '<h2 class="wo-name">'+ex.name+'</h2>'+
+    woYtLinkHtml(ex.id)+
+    '<div class="wo-instr-head">How to Perform</div>'+
+    '<ul class="wo-cues">'+ex.cues.map(function(c){ return '<li>'+c+'</li>'; }).join('')+'</ul>'+
+    '<p class="wo-mistake">Watch for: '+ex.mistakes+'</p>'+
+    '<button class="wo-fillbtn" id="woSkipDemo">'+
+      '<span class="wo-fillbtn-fill" id="woDemoFill"></span>'+
+      '<span class="wo-fillbtn-label" id="woDemoLabel">Start Set 1 &#9654;</span>'+
+    '</button>';
+  slide.scrollTop = 0;
+  document.getElementById('woSkipDemo').addEventListener('click', function(){ woClearStageTimers(); woEnterWork(); });
+  var remaining = DEMO_SECONDS;
+  var fillEl = document.getElementById('woDemoFill');
+  var labelEl = document.getElementById('woDemoLabel');
+  WORKOUT.demoInt = setInterval(function(){
+    remaining--;
+    var pct = Math.max(0, Math.min(100, ((DEMO_SECONDS-remaining)/DEMO_SECONDS)*100));
+    if(fillEl) fillEl.style.width = pct+'%';
+    if(remaining<=0){
+      if(fillEl) fillEl.classList.add('ready');
+      if(labelEl) labelEl.textContent = 'Ready ✓';
+      clearInterval(WORKOUT.demoInt); WORKOUT.demoInt=null;
+      setTimeout(function(){ woEnterWork(); }, 220);
+    }
+  }, 1000);
+}
+
+function woEnterWork(){
+  woClearStageTimers();
+  var ex = WORKOUT.list[WORKOUT.idx];
+  var slide = document.getElementById('woSlide');
+  slide.innerHTML =
+    '<div class="wo-tag-stage">Set '+WORKOUT.setIdx+' of '+WORKOUT.totalSets+'</div>'+
+    '<h2 class="wo-name">'+ex.name+'</h2>'+
+    '<div class="wo-meta"><span class="tag load">'+ex.load[currentPhase]+'</span></div>'+
+    weightFieldHtml(ex.id,'lg')+
+    '<div class="art wo-diagram">'+artBlock(ex.muscles)+'</div>'+
+    '<details class="wo-instr">'+
+      '<summary class="wo-see-instr">See Instructions</summary>'+
+      '<div class="wo-instr-head">How to Perform</div>'+
+      '<ul class="wo-cues">'+ex.cues.map(function(c){ return '<li>'+c+'</li>'; }).join('')+'</ul>'+
+      '<p class="wo-mistake">Watch for: '+ex.mistakes+'</p>'+
+    '</details>'+
+    '<button class="wo-done" id="woRepDoneBtn">Rep Done &#10003;</button>';
+  slide.scrollTop = 0;
+  wireWeightFields(slide);
+  document.getElementById('woRepDoneBtn').addEventListener('click', woOnRepDone);
+}
+
+function woOnRepDone(){
+  var ex = WORKOUT.list[WORKOUT.idx];
+  var reps = woParseReps(ex.load[currentPhase]);
+  var weight = parseFloat(getWeight(ex.id)) || 0;
+  WORKOUT.log.push({id:ex.id, name:ex.name, set:WORKOUT.setIdx, reps:reps, weight:weight});
+  if(WORKOUT.setIdx >= WORKOUT.totalSets){
+    try{ localStorage.setItem('r2c_'+WORKOUT.day+'-'+ex.id, '1'); }catch(e){}
+    var cb = document.querySelector('[data-track="'+WORKOUT.day+'-'+ex.id+'"]');
+    if(cb) cb.checked = true;
+    WORKOUT.idx++;
+    if(WORKOUT.idx >= WORKOUT.list.length){ woFinish(); }
+    else { woEnterExercise(); }
+  } else {
+    woEnterRest();
+  }
+}
+
+function woEnterRest(){
+  woClearStageTimers();
+  var ex = WORKOUT.list[WORKOUT.idx];
+  var restSec = REST[ex.id] || 60;
+  var slide = document.getElementById('woSlide');
+  slide.innerHTML =
+    '<div class="wo-tag-stage">Rest</div>'+
+    '<div class="wo-rest-count mono" id="woRestCount">'+woFmt(restSec)+'</div>'+
+    '<p class="wo-mistake" style="color:#cfd3dc;">Next: Set '+(WORKOUT.setIdx+1)+' of '+WORKOUT.totalSets+' &mdash; '+ex.name+'</p>'+
+    '<button class="wo-skip" id="woSkipRest">Next &#9654;</button>';
+  slide.scrollTop = 0;
+  document.getElementById('woSkipRest').addEventListener('click', function(){ woClearStageTimers(); woAdvanceAfterRest(); });
+  var remaining = restSec;
+  var countEl = document.getElementById('woRestCount');
+  WORKOUT.restInt = setInterval(function(){
+    remaining--;
+    if(countEl) countEl.textContent = woFmt(Math.max(remaining,0));
+    if(remaining<=0){ woClearStageTimers(); woAdvanceAfterRest(); }
+  }, 1000);
+}
+
+function woAdvanceAfterRest(){
+  WORKOUT.setIdx++;
+  woEnterWork();
+}
+
+function woFinish(){
+  if(WORKOUT.timerInt) clearInterval(WORKOUT.timerInt);
+  woClearStageTimers();
+  var totalSec = Math.floor((Date.now()-WORKOUT.startTime)/1000);
+  woRenderDots();
+  var totalSets = WORKOUT.log.length;
+  var totalReps = WORKOUT.log.reduce(function(s,l){ return s+l.reps; }, 0);
+  var totalWeight = WORKOUT.log.reduce(function(s,l){ return s+l.reps*l.weight; }, 0);
+  try{
+    var hist = JSON.parse(localStorage.getItem('r2c_history')||'[]');
+    hist.push({date:new Date().toISOString(), day:WORKOUT.day, durationSec:totalSec,
+      calories:Math.round(WORKOUT.calBurned), totalWeight:totalWeight, totalSets:totalSets, totalReps:totalReps});
+    localStorage.setItem('r2c_history', JSON.stringify(hist.slice(-50)));
+  }catch(e){}
+  var slide = document.getElementById('woSlide');
+  slide.innerHTML =
+    '<div class="wo-complete">'+
+    '<h2>Workout Complete</h2>'+
+    '<div class="wo-stats-grid">'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+woFmt(totalSec)+'</span><span class="wo-stat-k">Time</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+Math.round(WORKOUT.calBurned)+'</span><span class="wo-stat-k">Calories</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+totalWeight.toLocaleString()+'</span><span class="wo-stat-k">lb Lifted</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+totalSets+'</span><span class="wo-stat-k">Sets</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+totalReps+'</span><span class="wo-stat-k">Reps</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+WORKOUT.list.length+'</span><span class="wo-stat-k">Exercises</span></div>'+
+    '</div>'+
+    '<button class="wo-finish" id="woFinishBtn">Back to Program</button></div>';
+  var prog = document.getElementById('woProgressText');
+  if(prog) prog.textContent = WORKOUT.list.length+'/'+WORKOUT.list.length;
+  document.getElementById('woFinishBtn').addEventListener('click', closeWorkout);
+  woCelebrate();
+}
+
+function closeWorkout(){
+  document.getElementById('workoutMode').hidden = true;
+  document.body.style.overflow = '';
+  if(WORKOUT.timerInt) clearInterval(WORKOUT.timerInt);
+  woClearStageTimers();
+  if(WORKOUT.wakeLock){ try{ WORKOUT.wakeLock.release(); }catch(e){} WORKOUT.wakeLock = null; }
+}
+
+function woCelebrate(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layer = document.getElementById('woEmoji');
+  if(!layer || reduce) return;
+  layer.innerHTML = '';
+  var set = ['🏆','🔥','💪','🎉','🏐','🎾','✅','⭐','💥'];
+  for(var i=0;i<28;i++){
+    var s = document.createElement('span');
+    s.textContent = set[Math.floor(Math.random()*set.length)];
+    s.style.left = (Math.random()*96)+'%';
+    s.style.setProperty('--dx', (Math.random()*160-80)+'px');
+    s.style.setProperty('--rot', (Math.random()*720-360)+'deg');
+    s.style.animationDuration = (2.6+Math.random()*2.2)+'s';
+    s.style.animationDelay = (Math.random()*1.1)+'s';
+    layer.appendChild(s);
+  }
+  setTimeout(function(){ layer.innerHTML=''; }, 5200);
+}
+
+/* ---------- GPS run tracker (Wednesday) — needs a real deployed web app,
+   not an Artifact: device location is blocked entirely inside the Artifact
+   sandbox. Requires HTTPS (GitHub Pages serves over HTTPS). ---------- */
+var RUN_MET = 9.8; /* easy-to-moderate jogging */
+var RUN = { watchId:null, startTime:0, timerInt:null, points:[], meters:0, lastGood:null };
+
+function runHaversineMeters(a, b){
+  var R = 6371000;
+  var dLat = (b.lat-a.lat) * Math.PI/180;
+  var dLon = (b.lon-a.lon) * Math.PI/180;
+  var la1 = a.lat * Math.PI/180, la2 = b.lat * Math.PI/180;
+  var h = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)*Math.sin(dLon/2);
+  return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1-h));
+}
+function runFmtMiles(m){ return (m/1609.34).toFixed(2); }
+function runFmtPace(m, sec){
+  var miles = m/1609.34;
+  if(miles < 0.05) return '--:--';
+  var paceSec = sec/miles;
+  var mm = Math.floor(paceSec/60), ss = Math.round(paceSec%60);
+  return mm+':'+(ss<10?'0':'')+ss+'/mi';
+}
+
+function startRun(){
+  if(!('geolocation' in navigator)){
+    alert('This device/browser does not support location tracking.');
+    return;
+  }
+  RUN.points = []; RUN.meters = 0; RUN.lastGood = null; RUN.startTime = Date.now();
+  document.getElementById('workoutMode').hidden = false;
+  document.body.style.overflow = 'hidden';
+  woRequestWakeLock();
+  runRenderTracking();
+  if(RUN.timerInt) clearInterval(RUN.timerInt);
+  RUN.timerInt = setInterval(runUpdateDisplay, 1000);
+  RUN.watchId = navigator.geolocation.watchPosition(runOnPosition, runOnError, {
+    enableHighAccuracy: true, maximumAge: 1000, timeout: 15000
+  });
+}
+
+function runOnPosition(pos){
+  var pt = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: pos.coords.accuracy, t: Date.now() };
+  RUN.points.push(pt);
+  if(pt.acc && pt.acc <= 30 && RUN.lastGood){
+    var d = runHaversineMeters(RUN.lastGood, pt);
+    if(d > 0.5 && d < 200){ RUN.meters += d; } /* ignore GPS noise/jumps */
+  }
+  if(!pt.acc || pt.acc <= 30) RUN.lastGood = pt;
+}
+function runOnError(err){
+  var msg = document.getElementById('runStatusMsg');
+  if(msg) msg.textContent = 'Location error: ' + (err && err.message ? err.message : 'permission denied or unavailable') + ' — distance will stay at 0 until it reconnects.';
+}
+
+function runRenderTracking(){
+  var slide = document.getElementById('woSlide');
+  document.getElementById('woDots').innerHTML = '';
+  document.getElementById('woProgressText').textContent = 'Run';
+  document.getElementById('woCalories').textContent = '0 kcal';
+  slide.innerHTML =
+    '<div class="wo-tag-stage">Tracking Run</div>'+
+    '<div class="run-dist" id="runDist">0.00<span class="run-unit">mi</span></div>'+
+    '<div class="run-stats-row">'+
+      '<div class="run-stat"><span class="run-stat-v" id="runPace">--:--/mi</span><span class="run-stat-k">Pace</span></div>'+
+      '<div class="run-stat"><span class="run-stat-v" id="runCal">0</span><span class="run-stat-k">Calories</span></div>'+
+    '</div>'+
+    '<p class="wo-mistake" id="runStatusMsg" style="color:#9aa6bd;">Acquiring GPS signal&hellip;</p>'+
+    '<button class="wo-done" id="runFinishBtn">Finish Run &#10003;</button>';
+  document.getElementById('runFinishBtn').addEventListener('click', finishRun);
+}
+
+function runUpdateDisplay(){
+  var sec = Math.floor((Date.now()-RUN.startTime)/1000);
+  var timerEl = document.getElementById('woTimer');
+  if(timerEl) timerEl.textContent = woFmt(sec);
+  var distEl = document.getElementById('runDist');
+  if(distEl) distEl.innerHTML = runFmtMiles(RUN.meters)+'<span class="run-unit">mi</span>';
+  var paceEl = document.getElementById('runPace');
+  if(paceEl) paceEl.textContent = runFmtPace(RUN.meters, sec);
+  var cal = Math.round((RUN_MET*3.5*BODYWEIGHT_KG/200/60) * sec);
+  var calEl = document.getElementById('runCal');
+  if(calEl) calEl.textContent = cal;
+  var calTop = document.getElementById('woCalories');
+  if(calTop) calTop.textContent = cal+' kcal';
+  if(RUN.points.length > 0){
+    var msg = document.getElementById('runStatusMsg');
+    if(msg && msg.textContent.indexOf('Acquiring') === 0) msg.textContent = 'GPS locked — tracking distance.';
+  }
+}
+
+function runStopWatch(){
+  if(RUN.watchId !== null){ try{ navigator.geolocation.clearWatch(RUN.watchId); }catch(e){} RUN.watchId = null; }
+  if(RUN.timerInt){ clearInterval(RUN.timerInt); RUN.timerInt = null; }
+}
+
+function finishRun(){
+  var sec = Math.floor((Date.now()-RUN.startTime)/1000);
+  var cal = Math.round((RUN_MET*3.5*BODYWEIGHT_KG/200/60) * sec);
+  runStopWatch();
+  try{
+    var hist = JSON.parse(localStorage.getItem('r2c_run_history')||'[]');
+    hist.push({date:new Date().toISOString(), durationSec:sec, meters:RUN.meters, calories:cal});
+    localStorage.setItem('r2c_run_history', JSON.stringify(hist.slice(-50)));
+  }catch(e){}
+  var slide = document.getElementById('woSlide');
+  slide.innerHTML =
+    '<div class="wo-complete">'+
+    '<h2>Run Complete</h2>'+
+    '<div class="wo-stats-grid">'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+runFmtMiles(RUN.meters)+'</span><span class="wo-stat-k">Miles</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+woFmt(sec)+'</span><span class="wo-stat-k">Time</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+runFmtPace(RUN.meters, sec)+'</span><span class="wo-stat-k">Avg Pace</span></div>'+
+      '<div class="wo-stat"><span class="wo-stat-v">'+cal+'</span><span class="wo-stat-k">Calories</span></div>'+
+    '</div>'+
+    '<button class="wo-finish" id="woFinishBtn">Back to Program</button></div>';
+  document.getElementById('woFinishBtn').addEventListener('click', closeWorkout);
+  woCelebrate();
+}
+
+document.addEventListener('click', function(e){
+  if(e.target.closest('.start-run')){ startRun(); return; }
+  var startBtn = e.target.closest('.start-wo');
+  if(startBtn){ startWorkout(startBtn.dataset.day); return; }
+  if(e.target.closest('#woCloseBtn')){ runStopWatch(); closeWorkout(); return; }
+});
+
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+</script>
+
+</body></html>

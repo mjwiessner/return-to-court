@@ -1,0 +1,14 @@
+{
+  "name": "Return to Court",
+  "short_name": "ReturnToCourt",
+  "description": "12-week knee-durability and volleyball/tennis performance program.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#11161f",
+  "theme_color": "#1b2a4a",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
