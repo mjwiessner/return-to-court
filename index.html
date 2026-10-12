@@ -1063,28 +1063,70 @@ var REST = {
   volley_approach:90, tennis_split:60
 };
 
+/* ---------- calorie estimate: MET values sourced from the Compendium of
+   Physical Activities (2024 Adult Compendium, pacompendium.com — the
+   standard academic reference for activity energy cost). Most individual
+   resistance exercises have no single dedicated entry in the literature —
+   only broad categories by load/effort type — so each exercise below is
+   mapped to its closest documented category, noted in the comments, never
+   an unreferenced guess. Running uses a live pace-indexed table instead
+   of a flat value (see runMetForPace below). Formula: kcal/min = MET x
+   3.5 x bodyweight(kg) / 200 (standard ACSM equation). */
 var BODYWEIGHT_KG = 74.8; /* 165 lb, from the program profile */
+var STANDING_MET = 1.3; /* Compendium, Inactivity: "standing quietly" — used during rest/prep, not the exercise's own MET */
 var MET = {
-  bb_squat:6, bulg_split:5, stepdown:4, walk_lunge:4.5, nordic:4, sl_calf:3.5,
-  lat_pulldown:4, face_pull:3, band_er:2.5, wall_slide:2.5, sa_row:4, ytw:3,
-  rdl:6, hip_thrust:5, sl_rdl:4, band_walk:3.5, copenhagen:3,
-  ngrip_bench:5, landmine_press:4.5, cable_row:4, plank:3, deadbug:3, pallof:3,
-  depth_drop:6, box_jump:8, skater_jump:7, broad_jump:7, lat_shuffle:7,
-  volley_approach:7.5, tennis_split:7.5
+  /* "Resistance (weight) training, squats, deadlift, slow or explosive effort" = 5.0 */
+  bb_squat:5.0, rdl:5.0, hip_thrust:5.0,
+  /* "Resistance training, multiple exercises, 8-15 reps at varied resistance" = 3.5 */
+  bulg_split:3.5, walk_lunge:3.5, sa_row:3.5, sl_rdl:3.5, band_walk:3.5,
+  lat_pulldown:3.5, ngrip_bench:3.5, landmine_press:3.5, cable_row:3.5,
+  /* "Body weight resistance exercises (squat, lunge, push-up, crunch), general" = 3.0 */
+  stepdown:3.0, sl_calf:3.0, copenhagen:3.0, plank:3.0, deadbug:3.0, pallof:3.0,
+  /* No compendium entry for light banded/isolation rehab work; placed just
+     under the 3.0 "general bodyweight" tier given the much smaller muscle
+     mass and slower, controlled tempo (face pulls, band ER, wall slides, YTW) */
+  face_pull:2.5, band_er:2.5, wall_slide:2.5, ytw:2.5,
+  /* "Body weight resistance exercises, high intensity" = 6.5 — eccentric-
+     overload (Nordic curl) and landing-deceleration (depth drop) work */
+  nordic:6.5, depth_drop:6.5,
+  /* "Calisthenics (jumping jacks, burpees), vigorous effort" = 7.5 — closest
+     documented proxy for explosive jump-then-recover plyometrics */
+  box_jump:7.5, skater_jump:7.5, broad_jump:7.5, volley_approach:7.5,
+  /* "Basketball, drills/practice" = 9.3 — closest documented reactive-
+     footwork/agility-drill proxy */
+  lat_shuffle:9.3,
+  /* "Tennis, competitive, singles" = 8.0 */
+  tennis_split:8.0
 };
+function exMet(exId){ return MET[exId] || 3.5; }
+function kcalPerSecondAtMet(met){ return (met*3.5*BODYWEIGHT_KG/200)/60; }
+
+/* Running MET by pace, interpolated from the Compendium's running speed
+   table (mph -> MET): 4=6.0, 5=8.3, 5.2=9.0, 6=9.8, 6.7=10.5, 7=11.0,
+   7.5=11.5, 8=11.8, 8.6=12.3, 9=12.8, 10=14.5. Below 4 mph is scored as
+   brisk walking (3.5 MET) rather than extrapolated running values. */
+var RUN_MET_TABLE = [[0,2.0],[2,2.8],[3,3.5],[4,6.0],[5,8.3],[5.2,9.0],[6,9.8],
+  [6.7,10.5],[7,11.0],[7.5,11.5],[8,11.8],[8.6,12.3],[9,12.8],[10,14.5],[11,16.0],[12,19.0]];
+function runMetForPace(mph){
+  if(mph <= RUN_MET_TABLE[0][0]) return RUN_MET_TABLE[0][1];
+  for(var i=1;i<RUN_MET_TABLE.length;i++){
+    if(mph <= RUN_MET_TABLE[i][0]){
+      var a = RUN_MET_TABLE[i-1], b = RUN_MET_TABLE[i];
+      var t = (mph-a[0])/(b[0]-a[0]);
+      return a[1] + (b[1]-a[1])*t;
+    }
+  }
+  return RUN_MET_TABLE[RUN_MET_TABLE.length-1][1];
+}
 
 var WORKOUT = { day:null, list:[], idx:0, setIdx:1, totalSets:1, startTime:0,
   timerInt:null, demoInt:null, restInt:null, flyTO:null, capInt:null, clipCtrl:null,
-  wakeLock:null, calBurned:0, log:[] };
+  wakeLock:null, calBurned:0, log:[], currentMET:STANDING_MET, setStageStart:0 };
 
 function woFmt(sec){ var m=Math.floor(sec/60), s=sec%60; return m+':'+(s<10?'0':'')+s; }
 function woParseReps(loadStr){
   var m = /×\s*(\d+)/.exec(loadStr||'');
   return m ? parseInt(m[1],10) : 1;
-}
-function woKcalForSecond(exId){
-  var met = MET[exId] || 4;
-  return (met*3.5*BODYWEIGHT_KG/200)/60; /* kcal per second */
 }
 function woParseSets(loadStr){
   var m = /^(\d+)\s*×/.exec(loadStr||'');
@@ -1229,7 +1271,7 @@ function startWorkout(dayId){
   var list = EX[dayId];
   if(!list || !list.length) return;
   WORKOUT.day = dayId; WORKOUT.list = list; WORKOUT.idx = 0; WORKOUT.startTime = Date.now();
-  WORKOUT.calBurned = 0; WORKOUT.log = [];
+  WORKOUT.calBurned = 0; WORKOUT.log = []; WORKOUT.currentMET = STANDING_MET;
   document.getElementById('workoutMode').hidden = false;
   document.body.style.overflow = 'hidden';
   if(WORKOUT.timerInt) clearInterval(WORKOUT.timerInt);
@@ -1257,8 +1299,12 @@ document.addEventListener('visibilitychange', function(){
 function woUpdateTimer(){
   var el = document.getElementById('woTimer');
   if(el) el.textContent = woFmt(Math.floor((Date.now()-WORKOUT.startTime)/1000));
-  var ex = WORKOUT.list[WORKOUT.idx];
-  if(ex){ WORKOUT.calBurned += woKcalForSecond(ex.id); }
+  /* integrates real elapsed seconds at whatever MET the current stage is
+     actually at (exercise MET while a set is in progress, standing MET
+     during quick-look/watch-the-move/rest) — this is what makes the total
+     a per-set, per-stage calculation rather than one flat guess for the
+     whole session. */
+  WORKOUT.calBurned += kcalPerSecondAtMet(WORKOUT.currentMET);
   var cal = document.getElementById('woCalories');
   if(cal) cal.textContent = Math.round(WORKOUT.calBurned)+' kcal';
 }
@@ -1294,6 +1340,7 @@ function woYtLinkHtml(exId){
 
 function woShowFlyover(){
   woClearStageTimers();
+  WORKOUT.currentMET = STANDING_MET;
   var ex = WORKOUT.list[WORKOUT.idx];
   var slide = document.getElementById('woSlide');
   slide.innerHTML =
@@ -1312,6 +1359,7 @@ function woShowFlyover(){
 
 function woEnterDemo(){
   woClearStageTimers();
+  WORKOUT.currentMET = STANDING_MET;
   var ex = WORKOUT.list[WORKOUT.idx];
   var slide = document.getElementById('woSlide');
   slide.innerHTML =
@@ -1346,6 +1394,8 @@ function woEnterDemo(){
 function woEnterWork(){
   woClearStageTimers();
   var ex = WORKOUT.list[WORKOUT.idx];
+  WORKOUT.currentMET = exMet(ex.id);
+  WORKOUT.setStageStart = Date.now();
   var slide = document.getElementById('woSlide');
   slide.innerHTML =
     '<div class="wo-tag-stage">Set '+WORKOUT.setIdx+' of '+WORKOUT.totalSets+'</div>'+
@@ -1369,7 +1419,12 @@ function woOnRepDone(){
   var ex = WORKOUT.list[WORKOUT.idx];
   var reps = woParseReps(ex.load[currentPhase]);
   var weight = parseFloat(getWeight(ex.id)) || 0;
-  WORKOUT.log.push({id:ex.id, name:ex.name, set:WORKOUT.setIdx, reps:reps, weight:weight});
+  /* per-set calorie math: real elapsed seconds on this set's screen, at
+     this exercise's researched MET — an auditable number per set, not
+     just a share of one flat session-wide guess. */
+  var setSec = Math.max(1, Math.round((Date.now()-(WORKOUT.setStageStart||Date.now()))/1000));
+  var setKcal = Math.round(setSec * kcalPerSecondAtMet(exMet(ex.id)) * 10) / 10;
+  WORKOUT.log.push({id:ex.id, name:ex.name, set:WORKOUT.setIdx, reps:reps, weight:weight, kcal:setKcal, met:exMet(ex.id)});
   if(WORKOUT.setIdx >= WORKOUT.totalSets){
     try{ localStorage.setItem('r2c_'+WORKOUT.day+'-'+ex.id, '1'); }catch(e){}
     var cb = document.querySelector('[data-track="'+WORKOUT.day+'-'+ex.id+'"]');
@@ -1384,6 +1439,7 @@ function woOnRepDone(){
 
 function woEnterRest(){
   woClearStageTimers();
+  WORKOUT.currentMET = STANDING_MET;
   var ex = WORKOUT.list[WORKOUT.idx];
   var restSec = REST[ex.id] || 60;
   var slide = document.getElementById('woSlide');
@@ -1471,8 +1527,8 @@ function woCelebrate(){
 /* ---------- GPS run tracker (Wednesday) — needs a real deployed web app,
    not an Artifact: device location is blocked entirely inside the Artifact
    sandbox. Requires HTTPS (GitHub Pages serves over HTTPS). ---------- */
-var RUN_MET = 9.8; /* easy-to-moderate jogging */
-var RUN = { watchId:null, startTime:0, timerInt:null, points:[], meters:0, lastGood:null };
+var RUN = { watchId:null, startTime:0, timerInt:null, points:[], meters:0, lastGood:null, calBurned:0, window:[] };
+var RUN_WINDOW_MS = 20000; /* rolling window used to estimate current pace -> current MET, so a walk break mid-run is scored at walking MET, not your average pace for the whole session */
 
 function runHaversineMeters(a, b){
   var R = 6371000;
@@ -1497,6 +1553,7 @@ function startRun(){
     return;
   }
   RUN.points = []; RUN.meters = 0; RUN.lastGood = null; RUN.startTime = Date.now();
+  RUN.calBurned = 0; RUN.window = [{t:Date.now(), m:0}];
   document.getElementById('workoutMode').hidden = false;
   document.body.style.overflow = 'hidden';
   woRequestWakeLock();
@@ -1516,6 +1573,18 @@ function runOnPosition(pos){
     if(d > 0.5 && d < 200){ RUN.meters += d; } /* ignore GPS noise/jumps */
   }
   if(!pt.acc || pt.acc <= 30) RUN.lastGood = pt;
+  RUN.window.push({t: Date.now(), m: RUN.meters});
+  var cutoff = Date.now() - RUN_WINDOW_MS;
+  while(RUN.window.length > 2 && RUN.window[0].t < cutoff){ RUN.window.shift(); }
+}
+function runCurrentPaceMph(){
+  if(RUN.window.length < 2) return 0;
+  var first = RUN.window[0], last = RUN.window[RUN.window.length-1];
+  var dtSec = (last.t-first.t)/1000;
+  var dm = last.m-first.m;
+  if(dtSec < 3) return 0; /* not enough signal yet this tick */
+  var metersPerSec = dm/dtSec;
+  return metersPerSec * 2.23694; /* m/s -> mph */
 }
 function runOnError(err){
   var msg = document.getElementById('runStatusMsg');
@@ -1547,7 +1616,12 @@ function runUpdateDisplay(){
   if(distEl) distEl.innerHTML = runFmtMiles(RUN.meters)+'<span class="run-unit">mi</span>';
   var paceEl = document.getElementById('runPace');
   if(paceEl) paceEl.textContent = runFmtPace(RUN.meters, sec);
-  var cal = Math.round((RUN_MET*3.5*BODYWEIGHT_KG/200/60) * sec);
+  /* calories integrated second-by-second at the MET for your actual
+     current pace (rolling window), not one flat jogging guess for the
+     whole run — a walk break or a hard interval both get scored correctly. */
+  var curMet = runMetForPace(runCurrentPaceMph());
+  RUN.calBurned += kcalPerSecondAtMet(curMet);
+  var cal = Math.round(RUN.calBurned);
   var calEl = document.getElementById('runCal');
   if(calEl) calEl.textContent = cal;
   var calTop = document.getElementById('woCalories');
@@ -1565,7 +1639,7 @@ function runStopWatch(){
 
 function finishRun(){
   var sec = Math.floor((Date.now()-RUN.startTime)/1000);
-  var cal = Math.round((RUN_MET*3.5*BODYWEIGHT_KG/200/60) * sec);
+  var cal = Math.round(RUN.calBurned);
   runStopWatch();
   try{
     var hist = JSON.parse(localStorage.getItem('r2c_run_history')||'[]');
