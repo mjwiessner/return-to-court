@@ -302,7 +302,7 @@ a.ext::after{content:" \2197";font-size:.85em;}
   flex:0 0 auto;
   width:100%;
   box-sizing:border-box;
-  margin-top:4px;
+  margin-top:8px;
   padding:13px;
   font-family:"JetBrains Mono",monospace;
   font-size:.85rem;
@@ -311,9 +311,11 @@ a.ext::after{content:" \2197";font-size:.85em;}
   text-overflow:ellipsis;
   border:1px solid #3a4050;
   border-radius:12px;
-  background:transparent;
+  background:#171b26;
   color:#cfd3dc;
   cursor:pointer;
+  position:relative;
+  z-index:1;
 }
 .wo-tag-stage{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#c97a2e;}
 .wo-instr-head{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#9aa6bd;margin-top:2px;}
@@ -1167,10 +1169,12 @@ function mountClip(container, exId, exName){
 function woCycleCaptions(cues, el){
   if(!cues || !cues.length || !el) return;
   var i=0;
-  el.textContent = cues[0];
+  el.innerHTML = cues[0]; /* innerHTML, not textContent — cues contain HTML
+    entities like &mdash; that need decoding, not literal display; cues are
+    fixed program copy, never user input, so this is safe */
   WORKOUT.capInt = setInterval(function(){
     i=(i+1)%cues.length;
-    el.textContent = cues[i];
+    el.innerHTML = cues[i];
   }, 4000);
 }
 
